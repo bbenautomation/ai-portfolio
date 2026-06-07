@@ -38,7 +38,7 @@ const SERVICES = [
 ]
 
 
-type ToolkitItem = { name: string; abbr: string; color: string; bg: string; icon?: string }
+type ToolkitItem = { name: string; abbr: string; color: string; bg: string; icon?: string; src?: string }
 const TOOLKIT: ToolkitItem[] = [
   { name: 'Make.com',         abbr: 'Mk',  color: '#c084fc', bg: 'rgba(192,132,252,0.12)', icon: 'make' },
   { name: 'Zapier',           abbr: 'Zap', color: '#ff6b35', bg: 'rgba(255,107,53,0.12)',  icon: 'zapier' },
@@ -46,10 +46,10 @@ const TOOLKIT: ToolkitItem[] = [
   { name: 'Airtable',         abbr: 'Air', color: '#fcb400', bg: 'rgba(252,180,0,0.12)',   icon: 'airtable' },
   { name: 'Notion',           abbr: 'N',   color: '#e0e0e0', bg: 'rgba(255,255,255,0.06)', icon: 'notion' },
   { name: 'Google Workspace', abbr: 'G',   color: '#4285f4', bg: 'rgba(66,133,244,0.12)',  icon: 'google' },
-  { name: 'Slack',            abbr: 'Sl',  color: '#e01e5a', bg: 'rgba(224,30,90,0.12)',   icon: 'slack' },
+  { name: 'Slack',            abbr: 'Sl',  color: '#e01e5a', bg: 'rgba(224,30,90,0.12)',   src: '/icons/slackicon.png' },
   { name: 'HubSpot',          abbr: 'Hs',  color: '#ff7a59', bg: 'rgba(255,122,89,0.12)',  icon: 'hubspot' },
   { name: 'Trello',           abbr: 'Tr',  color: '#0079bf', bg: 'rgba(0,121,191,0.12)',   icon: 'trello' },
-  { name: 'ChatGPT API',      abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)',  icon: 'openai' },
+  { name: 'ChatGPT',          abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)',  icon: 'openai' },
   { name: 'Webhooks',         abbr: 'Wh',  color: '#00d4ff', bg: 'rgba(0,212,255,0.10)' },
   { name: 'Google Sheets',    abbr: 'GS',  color: '#34a853', bg: 'rgba(52,168,83,0.12)',   icon: 'googlesheets' },
   { name: 'PayPal',           abbr: 'PP',  color: '#00b4e6', bg: 'rgba(0,180,230,0.10)',   icon: 'paypal' },
@@ -400,7 +400,9 @@ export default function Home() {
                   ;(e.currentTarget as HTMLElement).style.borderColor = tool.color + '30'
                 }}
               >
-                {tool.icon ? (
+                {tool.src ? (
+                  <img src={tool.src} alt="" width={26} height={26} style={{ display: 'block', objectFit: 'contain' }} />
+                ) : tool.icon ? (
                   <>
                     <img
                       src={`https://cdn.simpleicons.org/${tool.icon}/${tool.color.replace('#', '')}`}
