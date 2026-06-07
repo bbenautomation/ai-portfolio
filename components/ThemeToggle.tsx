@@ -4,7 +4,11 @@ import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
 import { Sun, Moon } from 'lucide-react'
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+  inline?: boolean
+}
+
+export default function ThemeToggle({ inline = false }: ThemeToggleProps) {
   const [isDark, setIsDark] = useState(true)
 
   /* Sync to HTML attribute */
@@ -17,12 +21,9 @@ export default function ThemeToggle() {
       onClick={() => setIsDark(d => !d)}
       aria-label="Toggle color theme"
       style={{
-        position: 'fixed',
-        top: '1rem',
-        right: '1rem',
-        zIndex: 100,
-        width: 38,
-        height: 38,
+        ...(!inline && { position: 'fixed', top: '1rem', right: '1rem', zIndex: 100 }),
+        width: 36,
+        height: 36,
         borderRadius: '50%',
         background: 'var(--surface)',
         border: '1px solid var(--border)',
@@ -32,6 +33,7 @@ export default function ThemeToggle() {
         justifyContent: 'center',
         cursor: 'pointer',
         backdropFilter: 'blur(12px)',
+        flexShrink: 0,
       }}
       whileHover={{ scale: 1.1, color: 'var(--accent)' }}
       whileTap={{ scale: 0.92 }}

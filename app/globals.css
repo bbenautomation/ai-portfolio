@@ -160,6 +160,34 @@ body {
 .chat-input:focus { outline: none; }
 .chat-input::placeholder { color: var(--text-dim); }
 
+/* ─── Smooth scroll ─────────────────────────────── */
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 64px; }
+
+/* ─── Responsive section row ────────────────────── */
+.section-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  align-items: start;
+}
+@media (min-width: 600px) {
+  .section-row {
+    grid-template-columns: 1fr 1.4fr;
+    gap: 2rem;
+  }
+}
+
+/* ─── Nav links (hide on mobile) ────────────────── */
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: 24px;
+}
+@media (min-width: 600px) {
+  .nav-links { display: flex; }
+}
+
 /* ─── Typing dots ────────────────────────────────── */
 @keyframes bounce-dot {
   0%, 80%, 100% { transform: translateY(0); }

@@ -8,12 +8,13 @@ export type AvatarState = 'idle' | 'thinking' | 'speaking'
 interface AvatarProps {
   state: AvatarState
   compact?: boolean
+  size?: number
 }
 
-export default function Avatar({ state, compact = false }: AvatarProps) {
+export default function Avatar({ state, compact = false, size: sizeProp }: AvatarProps) {
   const [blink, setBlink] = useState(false)
   const reduced   = useReducedMotion()
-  const size      = compact ? 64 : 180
+  const size      = sizeProp ?? (compact ? 64 : 180)
 
   /* ── Refs for eye tracking ───────────────────── */
   const containerRef  = useRef<HTMLDivElement>(null)
