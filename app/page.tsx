@@ -49,13 +49,13 @@ const TOOLKIT: ToolkitItem[] = [
   { name: 'Slack',            abbr: 'Sl',  color: '#e01e5a', bg: 'rgba(224,30,90,0.12)',   src: '/icons/slackicon.png' },
   { name: 'HubSpot',          abbr: 'Hs',  color: '#ff7a59', bg: 'rgba(255,122,89,0.12)',  icon: 'hubspot' },
   { name: 'Trello',           abbr: 'Tr',  color: '#0079bf', bg: 'rgba(0,121,191,0.12)',   icon: 'trello' },
-  { name: 'ChatGPT',          abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)',  icon: 'chatgpt' },
-  { name: 'Webhooks',         abbr: 'Wh',  color: '#00d4ff', bg: 'rgba(0,212,255,0.10)' },
+  { name: 'ChatGPT',          abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)',  src: '/icons/chatgpticon.png' },
+  { name: 'Webhooks',         abbr: 'Wh',  color: '#00d4ff', bg: 'rgba(0,212,255,0.10)',  src: '/icons/webhookicon.png' },
   { name: 'Google Sheets',    abbr: 'GS',  color: '#34a853', bg: 'rgba(52,168,83,0.12)',   icon: 'googlesheets' },
   { name: 'PayPal',           abbr: 'PP',  color: '#00b4e6', bg: 'rgba(0,180,230,0.10)',   icon: 'paypal' },
   { name: 'Wise',             abbr: 'Ws',  color: '#9fe870', bg: 'rgba(159,232,112,0.10)', icon: 'wise' },
-  { name: 'Claude',           abbr: 'Cl',  color: '#e8956d', bg: 'rgba(232,149,109,0.12)', icon: 'anthropic' },
-  { name: 'Claude Code',      abbr: 'CC',  color: '#d4764f', bg: 'rgba(212,118,79,0.12)',  icon: 'anthropic' },
+  { name: 'Claude AI',        abbr: 'Cl',  color: '#e8956d', bg: 'rgba(232,149,109,0.12)', src: '/icons/claudeicon.png' },
+  { name: 'Claude Code',      abbr: 'CC',  color: '#d4764f', bg: 'rgba(212,118,79,0.12)',  src: '/icons/claudecodeicon.png' },
   { name: 'Gemini',           abbr: 'Gem', color: '#a8c7fa', bg: 'rgba(168,199,250,0.10)', icon: 'googlegemini' },
 ]
 
