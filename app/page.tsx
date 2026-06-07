@@ -38,9 +38,19 @@ const SERVICES = [
 ]
 
 
-const TOOLS = [
-  'Make.com', 'Zapier', 'n8n', 'Airtable', 'Notion',
-  'Google Workspace', 'Slack', 'HubSpot', 'Trello', 'ChatGPT API',
+const TOOLKIT = [
+  { name: 'Make.com',         abbr: 'Mk',  color: '#c084fc', bg: 'rgba(192,132,252,0.12)' },
+  { name: 'Zapier',           abbr: 'Zap', color: '#ff6b35', bg: 'rgba(255,107,53,0.12)'  },
+  { name: 'n8n',              abbr: 'n8n', color: '#ea4b71', bg: 'rgba(234,75,113,0.12)'  },
+  { name: 'Airtable',         abbr: 'Air', color: '#fcb400', bg: 'rgba(252,180,0,0.12)'   },
+  { name: 'Notion',           abbr: 'N',   color: '#e0e0e0', bg: 'rgba(255,255,255,0.06)' },
+  { name: 'Google Workspace', abbr: 'G',   color: '#4285f4', bg: 'rgba(66,133,244,0.12)'  },
+  { name: 'Slack',            abbr: 'Sl',  color: '#e01e5a', bg: 'rgba(224,30,90,0.12)'   },
+  { name: 'HubSpot',          abbr: 'Hs',  color: '#ff7a59', bg: 'rgba(255,122,89,0.12)'  },
+  { name: 'Trello',           abbr: 'Tr',  color: '#0079bf', bg: 'rgba(0,121,191,0.12)'   },
+  { name: 'ChatGPT API',      abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)'  },
+  { name: 'Webhooks',         abbr: 'Wh',  color: '#00d4ff', bg: 'rgba(0,212,255,0.10)'   },
+  { name: 'Google Sheets',    abbr: 'GS',  color: '#34a853', bg: 'rgba(52,168,83,0.12)'   },
 ]
 
 /* ── Scroll-reveal wrapper ───────────────────────── */
@@ -347,25 +357,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── TOOLS ── */}
-      <section style={{ ...SC, padding: '0 24px 7rem' }}>
+      {/* ── TOOLKIT MARQUEE ── */}
+      <section style={{ padding: '0 0 7rem', position: 'relative', zIndex: 1 }}>
         <FadeIn>
-          <h2 style={SH}>Tools &amp; Platforms</h2>
+          <p style={{
+            textAlign: 'center', fontSize: 11, letterSpacing: '0.15em',
+            color: 'var(--text-dim)', textTransform: 'uppercase', marginBottom: '2rem',
+          }}>
+            Full Toolkit
+          </p>
         </FadeIn>
-        <FadeIn delay={0.08}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {TOOLS.map(tool => (
-              <span key={tool} style={{
-                padding: '6px 14px', borderRadius: 6,
-                border: '1px solid var(--border)',
-                fontSize: 13, color: 'var(--text-muted)', fontWeight: 500,
-                background: 'var(--surface)', letterSpacing: '0.01em',
-              }}>
-                {tool}
-              </span>
+
+        <div className="marquee-container">
+          <div className="marquee-track">
+            {[...TOOLKIT, ...TOOLKIT].map((tool, i) => (
+              <div
+                key={i}
+                className="toolkit-item"
+                data-tooltip={tool.name}
+                style={{
+                  width: 56, height: 56, borderRadius: 14,
+                  background: tool.bg,
+                  border: `1px solid ${tool.color}30`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: tool.abbr.length > 2 ? 10 : 13,
+                  fontWeight: 800,
+                  color: tool.color,
+                  letterSpacing: '-0.02em',
+                  transition: 'transform 0.15s, border-color 0.15s',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'
+                  ;(e.currentTarget as HTMLElement).style.borderColor = tool.color + '80'
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                  ;(e.currentTarget as HTMLElement).style.borderColor = tool.color + '30'
+                }}
+              >
+                {tool.abbr}
+              </div>
             ))}
           </div>
-        </FadeIn>
+        </div>
       </section>
 
       {/* ── CHAT ── */}
