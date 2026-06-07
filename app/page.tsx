@@ -49,7 +49,7 @@ const TOOLKIT: ToolkitItem[] = [
   { name: 'Slack',            abbr: 'Sl',  color: '#e01e5a', bg: 'rgba(224,30,90,0.12)',   src: '/icons/slackicon.png' },
   { name: 'HubSpot',          abbr: 'Hs',  color: '#ff7a59', bg: 'rgba(255,122,89,0.12)',  icon: 'hubspot' },
   { name: 'Trello',           abbr: 'Tr',  color: '#0079bf', bg: 'rgba(0,121,191,0.12)',   icon: 'trello' },
-  { name: 'ChatGPT',          abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)',  icon: 'openai' },
+  { name: 'ChatGPT',          abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)',  icon: 'chatgpt' },
   { name: 'Webhooks',         abbr: 'Wh',  color: '#00d4ff', bg: 'rgba(0,212,255,0.10)' },
   { name: 'Google Sheets',    abbr: 'GS',  color: '#34a853', bg: 'rgba(52,168,83,0.12)',   icon: 'googlesheets' },
   { name: 'PayPal',           abbr: 'PP',  color: '#00b4e6', bg: 'rgba(0,180,230,0.10)',   icon: 'paypal' },
