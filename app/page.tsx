@@ -37,7 +37,8 @@ const SERVICES = [
   },
 ]
 
-const EXPERIENCE = [
+type ExperienceEntry = { company: string; role: string; period: string; location: string; description?: string }
+const EXPERIENCE: ExperienceEntry[] = [
   {
     company: 'MDS',
     role: 'Social Media Coordinator',
@@ -55,7 +56,6 @@ const EXPERIENCE = [
     role: 'Game Tester (Freelance)',
     period: 'Nov 2022 – Mar 2023',
     location: 'Remote',
-    description: 'Tested web3 games before public launch, identifying and reporting bugs to dev teams.',
   },
 ]
 
@@ -193,6 +193,10 @@ export default function Home() {
   const avatarState: AvatarState = isLoading
     ? lastMsg?.role === 'assistant' ? 'speaking' : 'thinking'
     : 'idle'
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
 
   useEffect(() => {
     const container = messagesContainerRef.current
