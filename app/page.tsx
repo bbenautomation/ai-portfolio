@@ -38,19 +38,25 @@ const SERVICES = [
 ]
 
 
-const TOOLKIT = [
-  { name: 'Make.com',         abbr: 'Mk',  color: '#c084fc', bg: 'rgba(192,132,252,0.12)' },
-  { name: 'Zapier',           abbr: 'Zap', color: '#ff6b35', bg: 'rgba(255,107,53,0.12)'  },
-  { name: 'n8n',              abbr: 'n8n', color: '#ea4b71', bg: 'rgba(234,75,113,0.12)'  },
-  { name: 'Airtable',         abbr: 'Air', color: '#fcb400', bg: 'rgba(252,180,0,0.12)'   },
-  { name: 'Notion',           abbr: 'N',   color: '#e0e0e0', bg: 'rgba(255,255,255,0.06)' },
-  { name: 'Google Workspace', abbr: 'G',   color: '#4285f4', bg: 'rgba(66,133,244,0.12)'  },
-  { name: 'Slack',            abbr: 'Sl',  color: '#e01e5a', bg: 'rgba(224,30,90,0.12)'   },
-  { name: 'HubSpot',          abbr: 'Hs',  color: '#ff7a59', bg: 'rgba(255,122,89,0.12)'  },
-  { name: 'Trello',           abbr: 'Tr',  color: '#0079bf', bg: 'rgba(0,121,191,0.12)'   },
-  { name: 'ChatGPT API',      abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)'  },
-  { name: 'Webhooks',         abbr: 'Wh',  color: '#00d4ff', bg: 'rgba(0,212,255,0.10)'   },
-  { name: 'Google Sheets',    abbr: 'GS',  color: '#34a853', bg: 'rgba(52,168,83,0.12)'   },
+type ToolkitItem = { name: string; abbr: string; color: string; bg: string; icon?: string }
+const TOOLKIT: ToolkitItem[] = [
+  { name: 'Make.com',         abbr: 'Mk',  color: '#c084fc', bg: 'rgba(192,132,252,0.12)', icon: 'make' },
+  { name: 'Zapier',           abbr: 'Zap', color: '#ff6b35', bg: 'rgba(255,107,53,0.12)',  icon: 'zapier' },
+  { name: 'n8n',              abbr: 'n8n', color: '#ea4b71', bg: 'rgba(234,75,113,0.12)',  icon: 'n8n' },
+  { name: 'Airtable',         abbr: 'Air', color: '#fcb400', bg: 'rgba(252,180,0,0.12)',   icon: 'airtable' },
+  { name: 'Notion',           abbr: 'N',   color: '#e0e0e0', bg: 'rgba(255,255,255,0.06)', icon: 'notion' },
+  { name: 'Google Workspace', abbr: 'G',   color: '#4285f4', bg: 'rgba(66,133,244,0.12)',  icon: 'google' },
+  { name: 'Slack',            abbr: 'Sl',  color: '#e01e5a', bg: 'rgba(224,30,90,0.12)',   icon: 'slack' },
+  { name: 'HubSpot',          abbr: 'Hs',  color: '#ff7a59', bg: 'rgba(255,122,89,0.12)',  icon: 'hubspot' },
+  { name: 'Trello',           abbr: 'Tr',  color: '#0079bf', bg: 'rgba(0,121,191,0.12)',   icon: 'trello' },
+  { name: 'ChatGPT API',      abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)',  icon: 'openai' },
+  { name: 'Webhooks',         abbr: 'Wh',  color: '#00d4ff', bg: 'rgba(0,212,255,0.10)' },
+  { name: 'Google Sheets',    abbr: 'GS',  color: '#34a853', bg: 'rgba(52,168,83,0.12)',   icon: 'googlesheets' },
+  { name: 'PayPal',           abbr: 'PP',  color: '#00b4e6', bg: 'rgba(0,180,230,0.10)',   icon: 'paypal' },
+  { name: 'Wise',             abbr: 'Ws',  color: '#9fe870', bg: 'rgba(159,232,112,0.10)', icon: 'wise' },
+  { name: 'Claude',           abbr: 'Cl',  color: '#e8956d', bg: 'rgba(232,149,109,0.12)', icon: 'anthropic' },
+  { name: 'Claude Code',      abbr: 'CC',  color: '#d4764f', bg: 'rgba(212,118,79,0.12)',  icon: 'anthropic' },
+  { name: 'Gemini',           abbr: 'Gem', color: '#a8c7fa', bg: 'rgba(168,199,250,0.10)', icon: 'googlegemini' },
 ]
 
 /* ── Scroll-reveal wrapper ───────────────────────── */
@@ -382,11 +388,8 @@ export default function Home() {
                   background: tool.bg,
                   border: `1px solid ${tool.color}30`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: tool.abbr.length > 2 ? 9 : 12,
-                  fontWeight: 800,
-                  color: tool.color,
-                  letterSpacing: '-0.02em',
                   transition: 'transform 0.15s, border-color 0.15s',
+                  flexShrink: 0,
                 }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'
@@ -397,7 +400,35 @@ export default function Home() {
                   ;(e.currentTarget as HTMLElement).style.borderColor = tool.color + '30'
                 }}
               >
-                {tool.abbr}
+                {tool.icon ? (
+                  <>
+                    <img
+                      src={`https://cdn.simpleicons.org/${tool.icon}/${tool.color.replace('#', '')}`}
+                      alt=""
+                      width={22}
+                      height={22}
+                      style={{ display: 'block' }}
+                      onError={e => {
+                        ;(e.currentTarget as HTMLImageElement).style.display = 'none'
+                        const next = (e.currentTarget as HTMLImageElement).nextElementSibling as HTMLElement
+                        if (next) next.style.display = 'block'
+                      }}
+                    />
+                    <span style={{
+                      display: 'none', fontSize: tool.abbr.length > 2 ? 9 : 12,
+                      fontWeight: 800, color: tool.color, letterSpacing: '-0.02em',
+                    }}>
+                      {tool.abbr}
+                    </span>
+                  </>
+                ) : (
+                  <span style={{
+                    fontSize: tool.abbr.length > 2 ? 9 : 12,
+                    fontWeight: 800, color: tool.color, letterSpacing: '-0.02em',
+                  }}>
+                    {tool.abbr}
+                  </span>
+                )}
               </div>
             ))}
           </div>

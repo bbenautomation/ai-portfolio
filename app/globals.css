@@ -213,7 +213,7 @@ section[id] { scroll-margin-top: 64px; }
   display: flex;
   gap: 12px;
   width: max-content;
-  animation: marquee-scroll 18s linear infinite;
+  animation: marquee-scroll 14s linear infinite;
 }
 .marquee-track:hover { animation-play-state: paused; }
 
