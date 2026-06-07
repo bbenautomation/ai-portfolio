@@ -165,6 +165,7 @@ const SH: React.CSSProperties = {
   letterSpacing: '-0.035em',
   color: 'var(--text)',
   marginBottom: '2.5rem',
+  textAlign: 'center',
 }
 
 /* ── Main page ───────────────────────────────────── */
@@ -264,75 +265,81 @@ export default function Home() {
         paddingTop: 96,
         paddingBottom: 64,
       }}>
-        <FadeIn>
-          <Avatar state="idle" size={160} />
-        </FadeIn>
+        <div className="hero-layout">
+          {/* Avatar — left */}
+          <FadeIn>
+            <Avatar state="idle" size={200} />
+          </FadeIn>
 
-        <FadeIn delay={0.08}>
-          <h1 style={{
-            fontSize: 'clamp(2.6rem, 8vw, 4.5rem)',
-            fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.05,
-            marginTop: '1.5rem', marginBottom: '0.6rem', color: 'var(--text)',
-          }}>
-            Hey, I'm Ben
-          </h1>
-        </FadeIn>
+          {/* Text stack — right */}
+          <div style={{ flex: 1 }}>
+            <FadeIn delay={0.08}>
+              <h1 style={{
+                fontSize: 'clamp(2.4rem, 7vw, 4rem)',
+                fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.05,
+                marginBottom: '0.6rem', color: 'var(--text)',
+              }}>
+                Hey, I'm Ben
+              </h1>
+            </FadeIn>
 
-        <FadeIn delay={0.14}>
-          <p style={{
-            fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
-            color: 'var(--accent)', fontWeight: 600,
-            letterSpacing: '0.01em', marginBottom: '1rem',
-          }}>
-            AI Automation Specialist — Pasig City, PH
-          </p>
-        </FadeIn>
+            <FadeIn delay={0.14}>
+              <p style={{
+                fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
+                color: 'var(--accent)', fontWeight: 600,
+                letterSpacing: '0.01em', marginBottom: '1rem',
+              }}>
+                AI Automation Specialist — Pasig City, PH
+              </p>
+            </FadeIn>
 
-        <FadeIn delay={0.2}>
-          <p style={{
-            fontSize: 16, color: 'var(--text-muted)', lineHeight: 1.75,
-            maxWidth: 460, marginBottom: '2.25rem',
-          }}>
-            I build automation workflows that help businesses eliminate repetitive tasks and connect their tools seamlessly.
-          </p>
-        </FadeIn>
+            <FadeIn delay={0.2}>
+              <p style={{
+                fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75,
+                maxWidth: 420, marginBottom: '2rem',
+              }}>
+                I build automation workflows that help businesses eliminate repetitive tasks and connect their tools seamlessly.
+              </p>
+            </FadeIn>
 
-        <FadeIn delay={0.26}>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <a href="#work" style={{
-              padding: '11px 26px', borderRadius: 9999,
-              background: 'var(--accent)', color: '#000',
-              fontWeight: 700, fontSize: 14, textDecoration: 'none',
-              letterSpacing: '-0.01em', fontFamily: 'inherit',
-            }}>
-              View my work
-            </a>
-            <a href="#chat" style={{
-              padding: '11px 26px', borderRadius: 9999,
-              background: 'transparent', color: 'var(--text)',
-              fontWeight: 600, fontSize: 14, textDecoration: 'none',
-              border: '1px solid var(--border-bright)',
-              letterSpacing: '-0.01em', fontFamily: 'inherit',
-            }}>
-              Chat with me
-            </a>
-            <a
-              href="/johnbenedictbiagtas.pdf"
-              download
-              style={{
-                padding: '11px 26px', borderRadius: 9999,
-                background: 'transparent', color: 'var(--text-muted)',
-                fontWeight: 600, fontSize: 14, textDecoration: 'none',
-                border: '1px solid var(--border)',
-                letterSpacing: '-0.01em', fontFamily: 'inherit',
-                display: 'flex', alignItems: 'center', gap: 7,
-              }}
-            >
-              <Download size={14} strokeWidth={2.5} />
-              Resume
-            </a>
+            <FadeIn delay={0.26}>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <a href="#work" style={{
+                  padding: '11px 26px', borderRadius: 9999,
+                  background: 'var(--accent)', color: '#000',
+                  fontWeight: 700, fontSize: 14, textDecoration: 'none',
+                  letterSpacing: '-0.01em', fontFamily: 'inherit',
+                }}>
+                  View my work
+                </a>
+                <a href="#chat" style={{
+                  padding: '11px 26px', borderRadius: 9999,
+                  background: 'transparent', color: 'var(--text)',
+                  fontWeight: 600, fontSize: 14, textDecoration: 'none',
+                  border: '1px solid var(--border-bright)',
+                  letterSpacing: '-0.01em', fontFamily: 'inherit',
+                }}>
+                  Chat with me
+                </a>
+                <a
+                  href="/johnbenedictbiagtas.pdf"
+                  download
+                  style={{
+                    padding: '11px 26px', borderRadius: 9999,
+                    background: 'transparent', color: 'var(--text-muted)',
+                    fontWeight: 600, fontSize: 14, textDecoration: 'none',
+                    border: '1px solid var(--border)',
+                    letterSpacing: '-0.01em', fontFamily: 'inherit',
+                    display: 'flex', alignItems: 'center', gap: 7,
+                  }}
+                >
+                  <Download size={14} strokeWidth={2.5} />
+                  Resume
+                </a>
+              </div>
+            </FadeIn>
           </div>
-        </FadeIn>
+        </div>
       </section>
 
       {/* ── SERVICES ── */}
@@ -401,7 +408,7 @@ export default function Home() {
       <section id="chat" style={{ ...SC, padding: '0 24px 6rem' }}>
         <FadeIn>
           <h2 style={{ ...SH, marginBottom: '0.5rem' }}>Chat with me</h2>
-          <p style={{ fontSize: 15, color: 'var(--text-muted)', marginBottom: '1.75rem' }}>
+          <p style={{ fontSize: 15, color: 'var(--text-muted)', marginBottom: '1.75rem', textAlign: 'center' }}>
             Ask me anything about my work, skills, or how we can collaborate.
           </p>
         </FadeIn>
