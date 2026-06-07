@@ -195,9 +195,9 @@ section[id] { scroll-margin-top: 64px; }
 }
 .marquee-track {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   width: max-content;
-  animation: marquee-scroll 28s linear infinite;
+  animation: marquee-scroll 18s linear infinite;
 }
 .marquee-track:hover { animation-play-state: paused; }
 
@@ -223,31 +223,15 @@ section[id] { scroll-margin-top: 64px; }
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.15s;
-  z-index: 10;
+  z-index: 20;
 }
 .toolkit-item:hover::after { opacity: 1; }
 
-.marquee-container {
-  position: relative;
-  overflow: hidden;
-  padding: 8px 0;
-}
-.marquee-container::before,
-.marquee-container::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 80px;
-  z-index: 2;
-  pointer-events: none;
-}
-.marquee-container::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg), transparent);
-}
-.marquee-container::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg), transparent);
+.marquee-outer {
+  overflow-x: clip;
+  padding: 44px 0 8px;
+  mask-image: linear-gradient(to right, transparent 0%, black 48px, black calc(100% - 48px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 48px, black calc(100% - 48px), transparent 100%);
 }
 
 /* ─── Typing dots ────────────────────────────────── */

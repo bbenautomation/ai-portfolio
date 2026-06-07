@@ -358,17 +358,12 @@ export default function Home() {
       </section>
 
       {/* ── TOOLKIT MARQUEE ── */}
-      <section style={{ padding: '0 0 7rem', position: 'relative', zIndex: 1 }}>
+      <section style={{ ...SC, padding: '0 24px 7rem' }}>
         <FadeIn>
-          <p style={{
-            textAlign: 'center', fontSize: 11, letterSpacing: '0.15em',
-            color: 'var(--text-dim)', textTransform: 'uppercase', marginBottom: '2rem',
-          }}>
-            Full Toolkit
-          </p>
+          <h2 style={SH}>Full Toolkit</h2>
         </FadeIn>
 
-        <div className="marquee-container">
+        <div className="marquee-outer">
           <div className="marquee-track">
             {[...TOOLKIT, ...TOOLKIT].map((tool, i) => (
               <div
@@ -376,11 +371,11 @@ export default function Home() {
                 className="toolkit-item"
                 data-tooltip={tool.name}
                 style={{
-                  width: 56, height: 56, borderRadius: 14,
+                  width: 46, height: 46, borderRadius: 12,
                   background: tool.bg,
                   border: `1px solid ${tool.color}30`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: tool.abbr.length > 2 ? 10 : 13,
+                  fontSize: tool.abbr.length > 2 ? 9 : 12,
                   fontWeight: 800,
                   color: tool.color,
                   letterSpacing: '-0.02em',
