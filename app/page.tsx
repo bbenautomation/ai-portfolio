@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Send } from 'lucide-react'
+import { Send, Download } from 'lucide-react'
 import Avatar, { type AvatarState } from '@/components/Avatar'
 import MouseEffect from '@/components/MouseEffect'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -37,27 +37,6 @@ const SERVICES = [
   },
 ]
 
-type ExperienceEntry = { company: string; role: string; period: string; location: string; description?: string }
-const EXPERIENCE: ExperienceEntry[] = [
-  {
-    company: 'MDS',
-    role: 'Social Media Coordinator',
-    period: 'Feb 2024 – May 2025',
-    location: 'Dubai (Remote)',
-  },
-  {
-    company: 'Starrett Family Trucking',
-    role: 'Personal Assistant to CEO',
-    period: 'Feb 2022 – May 2023',
-    location: 'Texas, USA (Remote)',
-  },
-  {
-    company: 'DAQA',
-    role: 'Game Tester (Freelance)',
-    period: 'Nov 2022 – Mar 2023',
-    location: 'Remote',
-  },
-]
 
 const TOOLS = [
   'Make.com', 'Zapier', 'n8n', 'Airtable', 'Notion',
@@ -243,7 +222,7 @@ export default function Home() {
         </a>
 
         <div className="nav-links">
-          {[['Work', '#work'], ['Experience', '#experience'], ['Chat', '#chat']].map(
+          {[['Work', '#work'], ['Chat', '#chat']].map(
             ([label, href]) => (
               <a
                 key={href}
@@ -327,6 +306,21 @@ export default function Home() {
             }}>
               Chat with me
             </a>
+            <a
+              href="/johnbenedictbiagtas.pdf"
+              download
+              style={{
+                padding: '11px 26px', borderRadius: 9999,
+                background: 'transparent', color: 'var(--text-muted)',
+                fontWeight: 600, fontSize: 14, textDecoration: 'none',
+                border: '1px solid var(--border)',
+                letterSpacing: '-0.01em', fontFamily: 'inherit',
+                display: 'flex', alignItems: 'center', gap: 7,
+              }}
+            >
+              <Download size={14} strokeWidth={2.5} />
+              Resume
+            </a>
           </div>
         </FadeIn>
       </section>
@@ -346,45 +340,6 @@ export default function Home() {
                 <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.7, margin: 0 }}>
                   {s.description}
                 </p>
-              </div>
-            </FadeIn>
-          ))}
-          <div style={{ borderTop: '1px solid var(--border)' }} />
-        </div>
-      </section>
-
-      {/* ── EXPERIENCE ── */}
-      <section id="experience" style={{ ...SC, padding: '0 24px 7rem' }}>
-        <FadeIn>
-          <h2 style={SH}>Experience</h2>
-        </FadeIn>
-        <div>
-          {EXPERIENCE.map((e, i) => (
-            <FadeIn key={e.company} delay={i * 0.07}>
-              <div className="section-row" style={{ padding: '2rem 0', borderTop: '1px solid var(--border)' }}>
-                <div>
-                  <p style={{ fontSize: 13, color: 'var(--text-dim)', letterSpacing: '0.01em', marginBottom: 3 }}>
-                    {e.period}
-                  </p>
-                  {e.location && (
-                    <p style={{ fontSize: 12, color: 'var(--text-dim)', opacity: 0.7 }}>
-                      {e.location}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text)', marginBottom: 4 }}>
-                    {e.role}
-                  </h3>
-                  <p style={{ fontSize: 14, color: 'var(--accent)', fontWeight: 600, marginBottom: e.description ? 6 : 0 }}>
-                    {e.company}
-                  </p>
-                  {e.description && (
-                    <p style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                      {e.description}
-                    </p>
-                  )}
-                </div>
               </div>
             </FadeIn>
           ))}
