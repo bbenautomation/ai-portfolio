@@ -39,16 +39,23 @@ const SERVICES = [
 
 const EXPERIENCE = [
   {
-    company: 'Starrett Family Trucking',
-    role: 'Personal Assistant to CEO',
-    period: 'Feb 2022 – May 2023',
-    location: 'Pennsylvania, USA (Remote)',
-  },
-  {
     company: 'MDS',
     role: 'Social Media Coordinator',
     period: 'Feb 2024 – May 2025',
-    location: '',
+    location: 'Dubai (Remote)',
+  },
+  {
+    company: 'Starrett Family Trucking',
+    role: 'Personal Assistant to CEO',
+    period: 'Feb 2022 – May 2023',
+    location: 'Texas, USA (Remote)',
+  },
+  {
+    company: 'DAQA',
+    role: 'Game Tester (Freelance)',
+    period: 'Nov 2022 – Mar 2023',
+    location: 'Remote',
+    description: 'Tested web3 games before public launch, identifying and reporting bugs to dev teams.',
   },
 ]
 
@@ -188,7 +195,9 @@ export default function Home() {
     : 'idle'
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth' })
+    const container = messagesContainerRef.current
+    if (!container || messages.length === 0) return
+    container.scrollTo({ top: container.scrollHeight, behavior: reduced ? 'instant' : 'smooth' })
   }, [messages, isLoading, reduced])
 
   const sendChip = (text: string) => {
@@ -272,8 +281,7 @@ export default function Home() {
             fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.05,
             marginTop: '1.5rem', marginBottom: '0.6rem', color: 'var(--text)',
           }}>
-            Hey, I'm Ben{' '}
-            <span role="img" aria-label="wave">👋</span>
+            Hey, I'm Ben
           </h1>
         </FadeIn>
 
@@ -364,9 +372,14 @@ export default function Home() {
                   <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text)', marginBottom: 4 }}>
                     {e.role}
                   </h3>
-                  <p style={{ fontSize: 14, color: 'var(--accent)', fontWeight: 600 }}>
+                  <p style={{ fontSize: 14, color: 'var(--accent)', fontWeight: 600, marginBottom: e.description ? 6 : 0 }}>
                     {e.company}
                   </p>
+                  {e.description && (
+                    <p style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
+                      {e.description}
+                    </p>
+                  )}
                 </div>
               </div>
             </FadeIn>
