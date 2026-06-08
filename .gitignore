@@ -29,3 +29,7 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+public/icons/chatgpticon.jpg
+public/icons/webhookicon.jpg
+public/icons/claudeicon.webp
+public/icons/claudecodeicon.webp
