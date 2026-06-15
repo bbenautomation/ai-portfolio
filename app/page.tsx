@@ -304,7 +304,7 @@ export default function Home() {
                 fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75,
                 maxWidth: 420, marginBottom: '2rem',
               }}>
-                I build automation workflows that help businesses eliminate repetitive tasks and connect their tools seamlessly.
+                I build the automations that handle your repetitive work behind the scenes, so your team can stay focused on what actually moves the business forward.
               </p>
             </FadeIn>
 
