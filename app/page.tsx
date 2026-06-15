@@ -544,7 +544,7 @@ export default function Home() {
                 color: 'var(--accent)', fontWeight: 600,
                 letterSpacing: '0.01em', marginBottom: '1rem',
               }}>
-                AI Automation Specialist — Pasig City, PH
+                AI Automation Specialist
               </p>
             </FadeIn>
 
