@@ -253,7 +253,7 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
                 style={{
                   background: 'var(--surface)', border: '1px solid var(--border)',
                   borderRadius: 20, overflow: 'hidden',
-                  maxWidth: 820, width: '100%', maxHeight: '90vh',
+                  maxWidth: 1040, width: '100%', maxHeight: '90vh',
                   overflowY: 'auto', position: 'relative',
                 }}
               >
