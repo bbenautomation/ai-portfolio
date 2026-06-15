@@ -254,33 +254,31 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
                   background: 'var(--surface)', border: '1px solid var(--border)',
                   borderRadius: 20, overflow: 'hidden',
                   maxWidth: 820, width: '100%', maxHeight: '90vh',
-                  overflowY: 'auto',
+                  overflowY: 'auto', position: 'relative',
                 }}
               >
+                <button
+                  onClick={() => setOpen(false)}
+                  style={{
+                    position: 'absolute', top: 12, right: 12, zIndex: 1,
+                    background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: 50, width: 36, height: 36, cursor: 'pointer',
+                    color: '#fff', fontSize: 18, display: 'flex',
+                    alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'inherit',
+                  }}
+                >
+                  ×
+                </button>
                 <img
                   src={item.image} alt={item.name}
                   style={{ width: '100%', display: 'block', borderBottom: '1px solid var(--border)' }}
                 />
                 <div style={{ padding: '28px 32px' }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 16 }}>
-                    <div>
-                      <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.03em', margin: 0 }}>
-                        {item.subtitle}
-                      </h3>
-                    </div>
-                    <button
-                      onClick={() => setOpen(false)}
-                      style={{
-                        background: 'var(--surface-hover)', border: '1px solid var(--border)',
-                        borderRadius: 50, width: 36, height: 36, cursor: 'pointer',
-                        color: 'var(--text-muted)', fontSize: 18, display: 'flex',
-                        alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                        fontFamily: 'inherit',
-                      }}
-                    >
-                      ×
-                    </button>
-                  </div>
+                  <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.03em', margin: '0 0 16px' }}>
+                    {item.subtitle}
+                  </h3>
                   <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, margin: 0 }}>
                     {item.summary}
                   </p>
