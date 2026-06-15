@@ -604,7 +604,7 @@ export default function Home() {
                   }}
                 >
                   <Download size={14} strokeWidth={2.5} />
-                  Resume
+                  Download my Resume
                 </a>
               </div>
             </FadeIn>
