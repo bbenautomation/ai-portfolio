@@ -125,10 +125,9 @@ const TECH_CATEGORIES: { name: string; items: string[] }[] = [
   { name: 'Automation',        items: ['Make.com', 'Zapier', 'n8n'] },
   { name: 'AI & Models',       items: ['ChatGPT', 'Claude AI', 'Gemini', 'Groq', 'Grok'] },
   { name: 'Dev & Integration', items: ['Claude Code', 'Webhooks', 'API Integration'] },
-  { name: 'Data & Analytics',  items: ['Google Sheets', 'Airtable', 'Clockify'] },
-  { name: 'Workspace',         items: ['Google Workspace', 'Notion', 'Trello'] },
+  { name: 'CRM & Analytics',   items: ['HubSpot', 'Google Sheets', 'Airtable', 'Clockify'] },
+  { name: 'Workspace',         items: ['Google Workspace', 'Notion', 'Trello', 'PayPal', 'Wise'] },
   { name: 'Comms & Ops',       items: ['Slack', 'Zoom', 'AnyDesk', 'Typeform'] },
-  { name: 'CRM & Finance',     items: ['HubSpot', 'PayPal', 'Wise'] },
 ]
 
 /* ── Scroll-reveal wrapper ───────────────────────── */
@@ -671,7 +670,7 @@ export default function Home() {
                 <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
               ))}
             </div>
-            <div style={{ width: 'calc(75% - 4px)', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <div style={{ width: 'calc(50% - 8px)', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
               {TECH_CATEGORIES.slice(4).map(cat => (
                 <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
               ))}
