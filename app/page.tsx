@@ -549,14 +549,17 @@ export default function Home() {
           <h2 style={SH}>Automations</h2>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
-            {AUTOMATIONS.slice(0, 4).map((a, i) => (
-              <AutomationCard key={a.id} item={a} index={i} />
-            ))}
-            <div />
-            {AUTOMATIONS.slice(4).map((a, i) => (
-              <AutomationCard key={a.id} item={a} index={i + 4} />
-            ))}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+              {AUTOMATIONS.slice(0, 4).map((a, i) => (
+                <AutomationCard key={a.id} item={a} index={i} />
+              ))}
+            </div>
+            <div style={{ width: 'calc(75% - 4px)', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              {AUTOMATIONS.slice(4).map((a, i) => (
+                <AutomationCard key={a.id} item={a} index={i + 4} />
+              ))}
+            </div>
           </div>
         </FadeIn>
       </section>
@@ -628,204 +631,199 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CHAT ── */}
-      <section id="chat" style={{ ...SC, padding: '0 24px 6rem' }}>
-        <FadeIn>
-          <h2 style={{ ...SH, marginBottom: '0.5rem' }}>Chat with me</h2>
-          <p style={{ fontSize: 15, color: 'var(--text-muted)', marginBottom: '1.75rem', textAlign: 'center' }}>
-            Ask me anything about my work, skills, or how we can collaborate.
-          </p>
-        </FadeIn>
+      {/* ── CONTACT + CHAT ── */}
+      <section id="chat" style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'start' }}>
 
-        <FadeIn delay={0.08}>
-          <div style={{
-            border: '1px solid var(--border)', borderRadius: 16,
-            overflow: 'hidden', background: 'var(--surface)',
-            display: 'flex', flexDirection: 'column', height: 580,
-            boxShadow: '0 0 40px var(--accent-glow)',
-          }}>
-            {/* Header */}
-            <div style={{
-              padding: '10px 14px', borderBottom: '1px solid var(--border)',
-              display: 'flex', alignItems: 'center', gap: 10,
-              flexShrink: 0, background: 'var(--bg-alt)',
-            }}>
-              <Avatar state={avatarState} compact />
-              <div>
-                <p style={{ fontWeight: 700, fontSize: 13, lineHeight: 1.2 }}>
-                  John Benedict Biagtas
-                </p>
-                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 1 }}>
-                  AI Automation Specialist
-                </p>
-              </div>
-            </div>
+          {/* LEFT: Contact */}
+          <FadeIn>
+            <div>
+              <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+                {"Let's Automate Your"}<br />
+                <span style={{ color: 'var(--accent)' }}>Business</span>
+              </h2>
+              <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 480, marginBottom: '2.5rem' }}>
+                Have repetitive tasks slowing your team down, or tools that need connecting? Let&apos;s talk.
+              </p>
 
-            {/* Messages */}
-            <div
-              ref={messagesContainerRef}
-              style={{
-                flex: 1, overflowY: 'auto', padding: '14px',
-                display: 'flex', flexDirection: 'column', gap: 12,
-              }}
-            >
-              {!hasMessages && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, padding: '4px 0 8px' }}>
-                  {CHIPS.map(chip => (
-                    <button
-                      key={chip.label}
-                      className="chip"
-                      onClick={() => sendChip(chip.label)}
-                      style={{
-                        padding: '7px 13px', borderRadius: 9999, fontSize: 12, fontWeight: 500,
-                        background: 'var(--accent-dim)', border: '1px solid var(--ai-bubble-border)',
-                        color: 'var(--accent)', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap',
-                      }}
-                    >
-                      {chip.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              <AnimatePresence>
-                {messages.map(msg => (
-                  <MessageBubble key={msg.id} role={msg.role} content={msg.content} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: '2.5rem' }}>
+                {[
+                  { icon: <Mail size={16} />, label: 'Email', value: 'johnbenedictbiagtas@gmail.com', href: 'mailto:johnbenedictbiagtas@gmail.com' },
+                  { icon: <Phone size={16} />, label: 'Phone', value: '+639295659969', href: 'tel:+639295659969' },
+                  { icon: <MessageCircle size={16} />, label: 'WhatsApp', value: 'Chat on WhatsApp', href: 'https://wa.me/639295659969' },
+                  { icon: <MapPin size={16} />, label: 'Location', value: 'Pasig City, Philippines', href: null },
+                ].map(item => (
+                  <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                    <div style={{
+                      width: 42, height: 42, borderRadius: 10, flexShrink: 0,
+                      background: 'var(--surface)', border: '1px solid var(--border)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--accent)',
+                    }}>
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 500, marginBottom: 2 }}>{item.label}</p>
+                      {item.href ? (
+                        <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
+                          style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', textDecoration: 'none' }}
+                          onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'var(--accent)'}
+                          onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'var(--text)'}
+                        >{item.value}</a>
+                      ) : (
+                        <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', margin: 0 }}>{item.value}</p>
+                      )}
+                    </div>
+                  </div>
                 ))}
-                {isLoading && lastMsg?.role === 'user' && <TypingIndicator key="typing" />}
-              </AnimatePresence>
-              <div ref={messagesEndRef} />
-            </div>
+              </div>
 
-            {/* Input */}
-            <div style={{ padding: '10px 12px', borderTop: '1px solid var(--border)', flexShrink: 0 }}>
-              <form
-                onSubmit={handleSubmit}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 8,
-                  background: 'var(--bg)',
-                  border: `1px solid ${isLoading ? 'var(--ai-bubble-border)' : 'var(--border-bright)'}`,
-                  borderRadius: 9999, padding: '5px 5px 5px 16px',
-                  transition: 'border-color 0.2s',
-                  boxShadow: isLoading ? '0 0 16px var(--accent-glow)' : 'none',
-                }}
-              >
-                <input
-                  ref={inputRef}
-                  className="chat-input"
-                  value={input}
-                  onChange={handleInputChange}
-                  placeholder="Ask me anything about my work, skills, or how I can help…"
-                  disabled={isLoading}
-                  autoComplete="off"
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <a
+                  href="https://wa.me/639295659969"
+                  target="_blank" rel="noopener noreferrer"
                   style={{
-                    flex: 1, background: 'transparent', border: 'none', outline: 'none',
-                    fontSize: 14, color: 'var(--text)', fontFamily: 'inherit', lineHeight: 1.5,
-                  }}
-                />
-                <motion.button
-                  type="submit"
-                  disabled={isLoading || !input.trim()}
-                  whileHover={!isLoading && input.trim() ? { scale: 1.05 } : {}}
-                  whileTap={!isLoading && input.trim() ? { scale: 0.95 } : {}}
-                  style={{
-                    width: 34, height: 34, borderRadius: '50%',
-                    background: isLoading || !input.trim() ? 'var(--border)' : 'var(--accent)',
-                    color: isLoading || !input.trim() ? 'var(--text-dim)' : '#000',
-                    border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    cursor: isLoading || !input.trim() ? 'not-allowed' : 'pointer',
-                    flexShrink: 0, transition: 'background 0.2s, color 0.2s',
+                    padding: '13px 28px', borderRadius: 9999,
+                    background: 'var(--accent)', color: '#000',
+                    fontWeight: 700, fontSize: 14, textDecoration: 'none',
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    letterSpacing: '-0.01em', fontFamily: 'inherit',
+                    boxShadow: '0 0 24px var(--accent-glow)',
                   }}
                 >
-                  <Send size={14} strokeWidth={2.5} />
-                </motion.button>
-              </form>
-              <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-dim)', marginTop: 6 }}>
-                AI-powered portfolio — responses may vary
-              </p>
+                  <MessageCircle size={15} strokeWidth={2.5} />
+                  Chat on WhatsApp
+                </a>
+                <a
+                  href="mailto:johnbenedictbiagtas@gmail.com"
+                  style={{
+                    padding: '13px 28px', borderRadius: 9999,
+                    background: 'transparent', color: 'var(--text-muted)',
+                    fontWeight: 600, fontSize: 14, textDecoration: 'none',
+                    border: '1px solid var(--border)',
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    letterSpacing: '-0.01em', fontFamily: 'inherit',
+                  }}
+                >
+                  <Mail size={15} strokeWidth={2.5} />
+                  Send an Email Directly
+                </a>
+              </div>
             </div>
-          </div>
-        </FadeIn>
-      </section>
+          </FadeIn>
 
-      {/* ── CONTACT ── */}
-      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
-        <FadeIn>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-            Contact
-          </p>
-          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.1, marginBottom: '1.25rem' }}>
-            {"Let's Automate Your"}<br />
-            <span style={{ color: 'var(--accent)' }}>Business</span>
-          </h2>
-          <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 480, marginBottom: '2.5rem' }}>
-            Have repetitive tasks slowing your team down, or tools that need connecting? Let&apos;s talk.
-          </p>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: '2.5rem' }}>
-            {[
-              { icon: <Mail size={16} />, label: 'Email', value: 'johnbenedictbiagtas@gmail.com', href: 'mailto:johnbenedictbiagtas@gmail.com' },
-              { icon: <Phone size={16} />, label: 'Phone', value: '+639295659969', href: 'tel:+639295659969' },
-              { icon: <MessageCircle size={16} />, label: 'WhatsApp', value: 'Chat on WhatsApp', href: 'https://wa.me/639295659969' },
-              { icon: <MapPin size={16} />, label: 'Location', value: 'Pasig City, Philippines', href: null },
-            ].map(item => (
-              <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <div style={{
-                  width: 42, height: 42, borderRadius: 10, flexShrink: 0,
-                  background: 'var(--surface)', border: '1px solid var(--border)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'var(--accent)',
-                }}>
-                  {item.icon}
-                </div>
+          {/* RIGHT: Chat widget */}
+          <FadeIn delay={0.08}>
+            <div style={{
+              border: '1px solid var(--border)', borderRadius: 16,
+              overflow: 'hidden', background: 'var(--surface)',
+              display: 'flex', flexDirection: 'column', height: 580,
+              boxShadow: '0 0 40px var(--accent-glow)',
+            }}>
+              {/* Header */}
+              <div style={{
+                padding: '10px 14px', borderBottom: '1px solid var(--border)',
+                display: 'flex', alignItems: 'center', gap: 10,
+                flexShrink: 0, background: 'var(--bg-alt)',
+              }}>
+                <Avatar state={avatarState} compact />
                 <div>
-                  <p style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 500, marginBottom: 2 }}>{item.label}</p>
-                  {item.href ? (
-                    <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
-                      style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', textDecoration: 'none' }}
-                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'var(--accent)'}
-                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'var(--text)'}
-                    >{item.value}</a>
-                  ) : (
-                    <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', margin: 0 }}>{item.value}</p>
-                  )}
+                  <p style={{ fontWeight: 700, fontSize: 13, lineHeight: 1.2 }}>
+                    John Benedict Biagtas
+                  </p>
+                  <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 1 }}>
+                    AI Automation Specialist
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
 
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <a
-              href="https://wa.me/639295659969"
-              target="_blank" rel="noopener noreferrer"
-              style={{
-                padding: '13px 28px', borderRadius: 9999,
-                background: 'var(--accent)', color: '#000',
-                fontWeight: 700, fontSize: 14, textDecoration: 'none',
-                display: 'flex', alignItems: 'center', gap: 8,
-                letterSpacing: '-0.01em', fontFamily: 'inherit',
-                boxShadow: '0 0 24px var(--accent-glow)',
-              }}
-            >
-              <MessageCircle size={15} strokeWidth={2.5} />
-              Chat on WhatsApp
-            </a>
-            <a
-              href="mailto:johnbenedictbiagtas@gmail.com"
-              style={{
-                padding: '13px 28px', borderRadius: 9999,
-                background: 'transparent', color: 'var(--text-muted)',
-                fontWeight: 600, fontSize: 14, textDecoration: 'none',
-                border: '1px solid var(--border)',
-                display: 'flex', alignItems: 'center', gap: 8,
-                letterSpacing: '-0.01em', fontFamily: 'inherit',
-              }}
-            >
-              <Mail size={15} strokeWidth={2.5} />
-              Send an Email Directly
-            </a>
-          </div>
-        </FadeIn>
+              {/* Messages */}
+              <div
+                ref={messagesContainerRef}
+                style={{
+                  flex: 1, overflowY: 'auto', padding: '14px',
+                  display: 'flex', flexDirection: 'column', gap: 12,
+                }}
+              >
+                {!hasMessages && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, padding: '4px 0 8px' }}>
+                    {CHIPS.map(chip => (
+                      <button
+                        key={chip.label}
+                        className="chip"
+                        onClick={() => sendChip(chip.label)}
+                        style={{
+                          padding: '7px 13px', borderRadius: 9999, fontSize: 12, fontWeight: 500,
+                          background: 'var(--accent-dim)', border: '1px solid var(--ai-bubble-border)',
+                          color: 'var(--accent)', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {chip.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                <AnimatePresence>
+                  {messages.map(msg => (
+                    <MessageBubble key={msg.id} role={msg.role} content={msg.content} />
+                  ))}
+                  {isLoading && lastMsg?.role === 'user' && <TypingIndicator key="typing" />}
+                </AnimatePresence>
+                <div ref={messagesEndRef} />
+              </div>
+
+              {/* Input */}
+              <div style={{ padding: '10px 12px', borderTop: '1px solid var(--border)', flexShrink: 0 }}>
+                <form
+                  onSubmit={handleSubmit}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    background: 'var(--bg)',
+                    border: `1px solid ${isLoading ? 'var(--ai-bubble-border)' : 'var(--border-bright)'}`,
+                    borderRadius: 9999, padding: '5px 5px 5px 16px',
+                    transition: 'border-color 0.2s',
+                    boxShadow: isLoading ? '0 0 16px var(--accent-glow)' : 'none',
+                  }}
+                >
+                  <input
+                    ref={inputRef}
+                    className="chat-input"
+                    value={input}
+                    onChange={handleInputChange}
+                    placeholder="Ask me anything about my work, skills, or how I can help…"
+                    disabled={isLoading}
+                    autoComplete="off"
+                    style={{
+                      flex: 1, background: 'transparent', border: 'none', outline: 'none',
+                      fontSize: 14, color: 'var(--text)', fontFamily: 'inherit', lineHeight: 1.5,
+                    }}
+                  />
+                  <motion.button
+                    type="submit"
+                    disabled={isLoading || !input.trim()}
+                    whileHover={!isLoading && input.trim() ? { scale: 1.05 } : {}}
+                    whileTap={!isLoading && input.trim() ? { scale: 0.95 } : {}}
+                    style={{
+                      width: 34, height: 34, borderRadius: '50%',
+                      background: isLoading || !input.trim() ? 'var(--border)' : 'var(--accent)',
+                      color: isLoading || !input.trim() ? 'var(--text-dim)' : '#000',
+                      border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: isLoading || !input.trim() ? 'not-allowed' : 'pointer',
+                      flexShrink: 0, transition: 'background 0.2s, color 0.2s',
+                    }}
+                  >
+                    <Send size={14} strokeWidth={2.5} />
+                  </motion.button>
+                </form>
+                <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-dim)', marginTop: 6 }}>
+                  AI-powered portfolio — responses may vary
+                </p>
+              </div>
+            </div>
+          </FadeIn>
+
+        </div>
       </section>
 
       {/* ── FOOTER ── */}
