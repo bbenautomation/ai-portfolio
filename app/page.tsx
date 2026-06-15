@@ -614,6 +614,30 @@ export default function Home() {
         </FadeIn>
       </section>
 
+      {/* ── SYSTEMS & TECH ── */}
+      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+        <FadeIn>
+          <h2 style={SH}>Systems &amp; Technologies</h2>
+          <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 520, marginBottom: '3rem', textAlign: 'center', margin: '0 auto 3rem' }}>
+            A full-spectrum automation stack covering everything from CRM architecture to AI model integration.
+          </p>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+              {TECH_CATEGORIES.slice(0, 4).map(cat => (
+                <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
+              ))}
+            </div>
+            <div style={{ width: 'calc(75% - 4px)', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              {TECH_CATEGORIES.slice(4).map(cat => (
+                <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
       {/* ── TOOLKIT MARQUEE ── */}
       <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
         <FadeIn>
@@ -679,30 +703,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* ── SYSTEMS & TECH ── */}
-      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
-        <FadeIn>
-          <h2 style={SH}>Systems &amp; Technologies</h2>
-          <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 520, marginBottom: '3rem', textAlign: 'center', margin: '0 auto 3rem' }}>
-            A full-spectrum automation stack covering everything from CRM architecture to AI model integration.
-          </p>
-        </FadeIn>
-        <FadeIn delay={0.1}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
-              {TECH_CATEGORIES.slice(0, 4).map(cat => (
-                <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
-              ))}
-            </div>
-            <div style={{ width: 'calc(75% - 4px)', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-              {TECH_CATEGORIES.slice(4).map(cat => (
-                <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
-              ))}
-            </div>
-          </div>
-        </FadeIn>
       </section>
 
       {/* ── CONTACT + CHAT ── */}
