@@ -413,8 +413,21 @@ export default function Home() {
     ? lastMsg?.role === 'assistant' ? 'speaking' : 'thinking'
     : 'idle'
 
+  const [navVisible, setNavVisible] = useState(false)
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
+
+  useEffect(() => {
+    const el = document.getElementById('chat')
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setNavVisible(true) },
+      { threshold: 0.05 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
   }, [])
 
   useEffect(() => {
@@ -461,24 +474,37 @@ export default function Home() {
           Ben<span style={{ color: 'var(--accent)' }}>.</span>
         </a>
 
-        <div className="nav-links">
-          {[['Work', '#work'], ['Chat', '#chat']].map(
-            ([label, href]) => (
-              <a
-                key={href}
-                href={href}
-                style={{
-                  fontSize: 13, color: 'var(--text-muted)', textDecoration: 'none',
-                  fontWeight: 500, letterSpacing: '0.01em', transition: 'color 0.15s',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
-              >
-                {label}
-              </a>
-            )
-          )}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={navVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
+          style={{
+            display: 'flex', gap: 28, pointerEvents: navVisible ? 'auto' : 'none',
+          }}
+        >
+          {[
+            ['What I Do', '#work'],
+            ['Automations', '#automations'],
+            ['Systems & Technologies', '#systems'],
+            ['Full Toolkit', '#toolkit'],
+            ['Contact', '#chat'],
+            ['Chat', '#chat-widget'],
+          ].map(([label, href]) => (
+            <a
+              key={label}
+              href={href}
+              style={{
+                fontSize: 12, color: 'var(--text-muted)', textDecoration: 'none',
+                fontWeight: 500, letterSpacing: '0.01em', transition: 'color 0.15s',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
+            >
+              {label}
+            </a>
+          ))}
+        </motion.div>
 
         <ThemeToggle inline />
       </nav>
@@ -594,7 +620,7 @@ export default function Home() {
       </section>
 
       {/* ── AUTOMATIONS ── */}
-      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+      <section id="automations" style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
         <FadeIn>
           <h2 style={SH}>Automations</h2>
         </FadeIn>
@@ -615,7 +641,7 @@ export default function Home() {
       </section>
 
       {/* ── SYSTEMS & TECH ── */}
-      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+      <section id="systems" style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
         <FadeIn>
           <h2 style={SH}>Systems &amp; Technologies</h2>
           <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 520, marginBottom: '3rem', textAlign: 'center', margin: '0 auto 3rem' }}>
@@ -639,7 +665,7 @@ export default function Home() {
       </section>
 
       {/* ── TOOLKIT MARQUEE ── */}
-      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+      <section id="toolkit" style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
         <FadeIn>
           <h2 style={SH}>Full Toolkit</h2>
         </FadeIn>
@@ -788,7 +814,7 @@ export default function Home() {
 
           {/* RIGHT: Chat widget */}
           <FadeIn delay={0.08}>
-            <div style={{
+            <div id="chat-widget" style={{
               border: '1px solid var(--border)', borderRadius: 16,
               overflow: 'hidden', background: 'var(--surface)',
               display: 'flex', flexDirection: 'column', height: 580,
