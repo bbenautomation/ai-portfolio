@@ -3,6 +3,7 @@
 import { useChat } from 'ai/react'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Send, Download, Mail, Phone, MapPin, MessageCircle } from 'lucide-react'
@@ -180,7 +181,10 @@ function TechCategoryCard({ name, items }: { name: string; items: string[] }) {
 /* ── Automation card + modal ─────────────────────── */
 function AutomationCard({ item, index }: { item: AutomationItem; index: number }) {
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const reduced = useReducedMotion()
+
+  useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
     if (open) {
@@ -224,66 +228,69 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
         </span>
       </motion.button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setOpen(false)}
-            style={{
-              position: 'fixed', inset: 0, zIndex: 9999,
-              background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              padding: '24px',
-            }}
-          >
+      {mounted && createPortal(
+        <AnimatePresence>
+          {open && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 16 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              onClick={e => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpen(false)}
               style={{
-                background: 'var(--surface)', border: '1px solid var(--border)',
-                borderRadius: 20, overflow: 'hidden',
-                maxWidth: 820, width: '100%', maxHeight: '90vh',
-                overflowY: 'auto',
+                position: 'fixed', inset: 0, zIndex: 9999,
+                background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                padding: '24px',
               }}
             >
-              <img
-                src={item.image} alt={item.name}
-                style={{ width: '100%', display: 'block', borderBottom: '1px solid var(--border)' }}
-              />
-              <div style={{ padding: '28px 32px' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 16 }}>
-                  <div>
-                    <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.03em', margin: 0 }}>
-                      {item.subtitle}
-                    </h3>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 16 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                onClick={e => e.stopPropagation()}
+                style={{
+                  background: 'var(--surface)', border: '1px solid var(--border)',
+                  borderRadius: 20, overflow: 'hidden',
+                  maxWidth: 820, width: '100%', maxHeight: '90vh',
+                  overflowY: 'auto',
+                }}
+              >
+                <img
+                  src={item.image} alt={item.name}
+                  style={{ width: '100%', display: 'block', borderBottom: '1px solid var(--border)' }}
+                />
+                <div style={{ padding: '28px 32px' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.03em', margin: 0 }}>
+                        {item.subtitle}
+                      </h3>
+                    </div>
+                    <button
+                      onClick={() => setOpen(false)}
+                      style={{
+                        background: 'var(--surface-hover)', border: '1px solid var(--border)',
+                        borderRadius: 50, width: 36, height: 36, cursor: 'pointer',
+                        color: 'var(--text-muted)', fontSize: 18, display: 'flex',
+                        alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                        fontFamily: 'inherit',
+                      }}
+                    >
+                      ×
+                    </button>
                   </div>
-                  <button
-                    onClick={() => setOpen(false)}
-                    style={{
-                      background: 'var(--surface-hover)', border: '1px solid var(--border)',
-                      borderRadius: 50, width: 36, height: 36, cursor: 'pointer',
-                      color: 'var(--text-muted)', fontSize: 18, display: 'flex',
-                      alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                      fontFamily: 'inherit',
-                    }}
-                  >
-                    ×
-                  </button>
+                  <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, margin: 0 }}>
+                    {item.summary}
+                  </p>
                 </div>
-                <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, margin: 0 }}>
-                  {item.summary}
-                </p>
-              </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   )
 }
