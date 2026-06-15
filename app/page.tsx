@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Send, Download } from 'lucide-react'
+import { Send, Download, Mail, Phone, MapPin, MessageCircle } from 'lucide-react'
 import Avatar, { type AvatarState } from '@/components/Avatar'
 import MouseEffect from '@/components/MouseEffect'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -323,9 +323,15 @@ function MessageBubble({ role, content }: { role: string; content: string }) {
   )
 }
 
-/* ── Shared section container ────────────────────── */
+/* ── Shared section containers ───────────────────── */
 const SC: React.CSSProperties = {
   maxWidth: 760,
+  margin: '0 auto',
+  position: 'relative',
+  zIndex: 1,
+}
+const SC_WIDE: React.CSSProperties = {
+  maxWidth: 1100,
   margin: '0 auto',
   position: 'relative',
   zIndex: 1,
@@ -516,7 +522,7 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="work" style={{ ...SC, padding: '7rem 24px' }}>
+      <section id="work" style={{ ...SC_WIDE, padding: '7rem 24px' }}>
         <FadeIn>
           <h2 style={SH}>What I do</h2>
         </FadeIn>
@@ -538,7 +544,7 @@ export default function Home() {
       </section>
 
       {/* ── AUTOMATIONS ── */}
-      <section style={{ ...SC, padding: '0 24px 7rem' }}>
+      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
         <FadeIn>
           <h2 style={SH}>Automations</h2>
         </FadeIn>
@@ -556,7 +562,7 @@ export default function Home() {
       </section>
 
       {/* ── TOOLKIT MARQUEE ── */}
-      <section style={{ ...SC, padding: '0 24px 7rem' }}>
+      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
         <FadeIn>
           <h2 style={SH}>Full Toolkit</h2>
         </FadeIn>
@@ -738,6 +744,86 @@ export default function Home() {
                 AI-powered portfolio — responses may vary
               </p>
             </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* ── CONTACT ── */}
+      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+        <FadeIn>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+            Contact
+          </p>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+            {"Let's Automate Your"}<br />
+            <span style={{ color: 'var(--accent)' }}>Business</span>
+          </h2>
+          <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 480, marginBottom: '2.5rem' }}>
+            Have repetitive tasks slowing your team down, or tools that need connecting? Let&apos;s talk.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: '2.5rem' }}>
+            {[
+              { icon: <Mail size={16} />, label: 'Email', value: 'johnbenedictbiagtas@gmail.com', href: 'mailto:johnbenedictbiagtas@gmail.com' },
+              { icon: <Phone size={16} />, label: 'Phone', value: '+639295659969', href: 'tel:+639295659969' },
+              { icon: <MessageCircle size={16} />, label: 'WhatsApp', value: 'Chat on WhatsApp', href: 'https://wa.me/639295659969' },
+              { icon: <MapPin size={16} />, label: 'Location', value: 'Pasig City, Philippines', href: null },
+            ].map(item => (
+              <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <div style={{
+                  width: 42, height: 42, borderRadius: 10, flexShrink: 0,
+                  background: 'var(--surface)', border: '1px solid var(--border)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--accent)',
+                }}>
+                  {item.icon}
+                </div>
+                <div>
+                  <p style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 500, marginBottom: 2 }}>{item.label}</p>
+                  {item.href ? (
+                    <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
+                      style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', textDecoration: 'none' }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'var(--accent)'}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'var(--text)'}
+                    >{item.value}</a>
+                  ) : (
+                    <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', margin: 0 }}>{item.value}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <a
+              href="https://wa.me/639295659969"
+              target="_blank" rel="noopener noreferrer"
+              style={{
+                padding: '13px 28px', borderRadius: 9999,
+                background: 'var(--accent)', color: '#000',
+                fontWeight: 700, fontSize: 14, textDecoration: 'none',
+                display: 'flex', alignItems: 'center', gap: 8,
+                letterSpacing: '-0.01em', fontFamily: 'inherit',
+                boxShadow: '0 0 24px var(--accent-glow)',
+              }}
+            >
+              <MessageCircle size={15} strokeWidth={2.5} />
+              Chat on WhatsApp
+            </a>
+            <a
+              href="mailto:johnbenedictbiagtas@gmail.com"
+              style={{
+                padding: '13px 28px', borderRadius: 9999,
+                background: 'transparent', color: 'var(--text-muted)',
+                fontWeight: 600, fontSize: 14, textDecoration: 'none',
+                border: '1px solid var(--border)',
+                display: 'flex', alignItems: 'center', gap: 8,
+                letterSpacing: '-0.01em', fontFamily: 'inherit',
+              }}
+            >
+              <Mail size={15} strokeWidth={2.5} />
+              Send an Email Directly
+            </a>
           </div>
         </FadeIn>
       </section>
