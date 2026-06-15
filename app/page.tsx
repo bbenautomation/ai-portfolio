@@ -23,17 +23,17 @@ const SERVICES = [
   {
     title: 'Workflow Automation',
     description:
-      'Build reliable, end-to-end automations that handle the repetitive work so your team can focus on what matters.',
+      'Build reliable, end-to-end automations that eliminate repetitive manual work and keep your operations running around the clock.',
   },
   {
     title: 'System Integration',
     description:
-      'Connect your CRM, apps, and data sources so information flows seamlessly across your entire tech stack.',
+      'Bring your apps, tools, and data sources together so your entire stack works as one connected, efficient system.',
   },
   {
     title: 'Process Optimization',
     description:
-      'Audit existing workflows, remove bottlenecks, and replace repetitive manual tasks with reliable automations.',
+      'Identify where your team is losing time and build smarter automations that handle the slow, repetitive steps without missing a beat.',
   },
 ]
 
