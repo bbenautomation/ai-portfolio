@@ -110,6 +110,23 @@ const TOOLKIT: ToolkitItem[] = [
   { name: 'Claude AI',        abbr: 'Cl',  color: '#e8956d', bg: 'rgba(232,149,109,0.12)', src: '/icons/claudeicon.png' },
   { name: 'Claude Code',      abbr: 'CC',  color: '#d4764f', bg: 'rgba(212,118,79,0.12)',  src: '/icons/claudecodeicon.png' },
   { name: 'Gemini',           abbr: 'Gem', color: '#a8c7fa', bg: 'rgba(168,199,250,0.10)', icon: 'googlegemini' },
+  { name: 'Clockify',         abbr: 'Clk', color: '#03A9F4', bg: 'rgba(3,169,244,0.12)',   icon: 'clockify' },
+  { name: 'Typeform',         abbr: 'Tf',  color: '#d4d4d4', bg: 'rgba(255,255,255,0.06)', icon: 'typeform' },
+  { name: 'Zoom',             abbr: 'Zm',  color: '#2D8CFF', bg: 'rgba(45,140,255,0.12)',  icon: 'zoom' },
+  { name: 'AnyDesk',          abbr: 'AD',  color: '#EF443B', bg: 'rgba(239,68,59,0.12)',   icon: 'anydesk' },
+  { name: 'Groq',             abbr: 'Gq',  color: '#F55036', bg: 'rgba(245,80,54,0.12)' },
+  { name: 'Grok',             abbr: 'Gk',  color: '#e0e0e0', bg: 'rgba(255,255,255,0.06)' },
+  { name: 'API Integration',  abbr: 'API', color: '#00d4ff', bg: 'rgba(0,212,255,0.10)' },
+]
+
+const TECH_CATEGORIES: { name: string; items: string[] }[] = [
+  { name: 'Automation',        items: ['Make.com', 'Zapier', 'n8n'] },
+  { name: 'AI & Models',       items: ['ChatGPT', 'Claude AI', 'Gemini', 'Groq', 'Grok'] },
+  { name: 'Dev & Integration', items: ['Claude Code', 'Webhooks', 'API Integration'] },
+  { name: 'Data & Analytics',  items: ['Google Sheets', 'Airtable', 'Clockify'] },
+  { name: 'Workspace',         items: ['Google Workspace', 'Notion', 'Trello'] },
+  { name: 'Comms & Ops',       items: ['Slack', 'Zoom', 'AnyDesk', 'Typeform'] },
+  { name: 'CRM & Finance',     items: ['HubSpot', 'PayPal', 'Wise'] },
 ]
 
 /* ── Scroll-reveal wrapper ───────────────────────── */
@@ -124,6 +141,39 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
     >
       {children}
     </motion.div>
+  )
+}
+
+/* ── Tech category card ──────────────────────────── */
+function TechCategoryCard({ name, items }: { name: string; items: string[] }) {
+  return (
+    <div style={{
+      background: 'var(--surface)', border: '1px solid var(--border)',
+      borderRadius: 14, padding: '20px 18px',
+    }}>
+      <p style={{
+        fontSize: 11, fontWeight: 700, letterSpacing: '0.1em',
+        color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 14,
+      }}>
+        {name}
+      </p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {items.map(itemName => {
+          const tool = TOOLKIT.find(t => t.name === itemName)
+          const color = tool?.color ?? 'var(--text-muted)'
+          return (
+            <span key={itemName} style={{
+              padding: '5px 11px', borderRadius: 9999,
+              fontSize: 12, fontWeight: 500,
+              color, background: tool?.bg ?? 'rgba(255,255,255,0.05)',
+              border: `1px solid ${color}40`,
+            }}>
+              {itemName}
+            </span>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 
@@ -629,6 +679,30 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ── SYSTEMS & TECH ── */}
+      <section style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+        <FadeIn>
+          <h2 style={SH}>Systems &amp; Technologies</h2>
+          <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 520, marginBottom: '3rem', textAlign: 'center', margin: '0 auto 3rem' }}>
+            A full-spectrum automation stack covering everything from CRM architecture to AI model integration.
+          </p>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+              {TECH_CATEGORIES.slice(0, 4).map(cat => (
+                <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
+              ))}
+            </div>
+            <div style={{ width: 'calc(75% - 4px)', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              {TECH_CATEGORIES.slice(4).map(cat => (
+                <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
+              ))}
+            </div>
+          </div>
+        </FadeIn>
       </section>
 
       {/* ── CONTACT + CHAT ── */}
