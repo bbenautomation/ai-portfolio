@@ -2,7 +2,7 @@
 
 import { useChat } from 'ai/react'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Send, Download } from 'lucide-react'
@@ -38,6 +38,59 @@ const SERVICES = [
 ]
 
 
+type AutomationItem = { id: string; name: string; subtitle: string; image: string; summary: string }
+const AUTOMATIONS: AutomationItem[] = [
+  {
+    id: 'ghost',
+    name: 'GHOST',
+    subtitle: 'Self-Healing Workflow Monitor',
+    image: '/workflows/ghost.png',
+    summary: 'A fully autonomous monitoring system that checks every 15 minutes for failed n8n executions. For each failure, AI diagnoses the root cause, retries the execution automatically, logs the incident to Google Sheets, and fires a Discord alert with the suggested fix — all without human input.',
+  },
+  {
+    id: 'apex',
+    name: 'APEX',
+    subtitle: 'Lead Outreach System',
+    image: '/workflows/apex.png',
+    summary: 'A two-workflow outreach system that reads new leads from Google Sheets, uses AI to write personalized emails, and sends them via Gmail. A second workflow monitors replies, classifies them as Interested, Not Interested, or Question, then routes each one automatically — hot lead alerts to Discord, auto-replies to questions, status updates for rejections.',
+  },
+  {
+    id: 'cipher',
+    name: 'CIPHER',
+    subtitle: 'AI Content Factory',
+    image: '/workflows/cipher.png',
+    summary: 'Send one topic via webhook and get five ready-to-publish content pieces in return: a full blog post, a LinkedIn post, a Twitter thread, an email newsletter, and an AI image prompt. All five are saved to Google Sheets and delivered to your inbox in a single formatted digest.',
+  },
+  {
+    id: 'verdict',
+    name: 'VERDICT',
+    subtitle: 'AI Job Application Screener',
+    image: '/workflows/verdict.png',
+    summary: 'An automated hiring pipeline that scores job applicants from 0 to 100 against role-specific requirements pulled from Google Sheets. Candidates above 70 receive a personalized interview invite; others get a polite rejection. Every decision is logged with the AI score and reasoning.',
+  },
+  {
+    id: 'forge',
+    name: 'FORGE',
+    subtitle: 'Lead Enrichment Pipeline',
+    image: '/workflows/forge.png',
+    summary: 'Pulls leads from two separate Google Sheets sources, merges them into one unified list, and processes them in batches of three. AI generates a company summary and outreach score for each lead, with built-in rate limit handling between batches.',
+  },
+  {
+    id: 'pulse',
+    name: 'PULSE',
+    subtitle: 'Weekly Project Status Report',
+    image: '/workflows/pulse.png',
+    summary: 'Every Monday at 8AM, the workflow pulls all project tasks from Google Sheets, calculates completion stats with JavaScript, and uses AI to write a professional status report. The full report goes out via Gmail; a condensed summary is posted to Discord.',
+  },
+  {
+    id: 'herald',
+    name: 'HERALD',
+    subtitle: 'E-Commerce Support Bot',
+    image: '/workflows/herald.png',
+    summary: 'An AI-powered customer support chatbot backed by a Google Sheets knowledge base. Powered by Claude Haiku 4.5, it answers questions about shipping, returns, and orders while remembering the last 10 messages for context-aware responses. Unknown questions redirect to the support email.',
+  },
+]
+
 type ToolkitItem = { name: string; abbr: string; color: string; bg: string; icon?: string; src?: string }
 const TOOLKIT: ToolkitItem[] = [
   { name: 'Make.com',         abbr: 'Mk',  color: '#c084fc', bg: 'rgba(192,132,252,0.12)', icon: 'make' },
@@ -71,6 +124,117 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
     >
       {children}
     </motion.div>
+  )
+}
+
+/* ── Automation card + modal ─────────────────────── */
+function AutomationCard({ item, index }: { item: AutomationItem; index: number }) {
+  const [open, setOpen] = useState(false)
+  const reduced = useReducedMotion()
+
+  return (
+    <>
+      <motion.button
+        onClick={() => setOpen(true)}
+        initial={reduced ? false : { opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: index * 0.05 }}
+        style={{
+          width: '100%', padding: '22px 28px',
+          borderRadius: 50, border: '1px solid var(--border)',
+          background: 'var(--surface)', cursor: 'pointer',
+          textAlign: 'left', display: 'flex', alignItems: 'center',
+          justifyContent: 'space-between', gap: 12,
+          transition: 'border-color 0.2s, background 0.2s, transform 0.2s',
+          fontFamily: 'inherit',
+        }}
+        onMouseEnter={e => {
+          (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)'
+          ;(e.currentTarget as HTMLElement).style.background = 'var(--surface-hover)'
+          ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
+        }}
+        onMouseLeave={e => {
+          (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'
+          ;(e.currentTarget as HTMLElement).style.background = 'var(--surface)'
+          ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+        }}
+      >
+        <div>
+          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.06em', display: 'block', marginBottom: 3 }}>
+            {item.name}
+          </span>
+          <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.02em' }}>
+            {item.subtitle}
+          </span>
+        </div>
+        <span style={{ fontSize: 18, color: 'var(--text-dim)', flexShrink: 0 }}>→</span>
+      </motion.button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setOpen(false)}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 200,
+              background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              padding: '24px',
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 16 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              onClick={e => e.stopPropagation()}
+              style={{
+                background: 'var(--surface)', border: '1px solid var(--border)',
+                borderRadius: 20, overflow: 'hidden',
+                maxWidth: 820, width: '100%', maxHeight: '90vh',
+                overflowY: 'auto',
+              }}
+            >
+              <img
+                src={item.image} alt={item.name}
+                style={{ width: '100%', display: 'block', borderBottom: '1px solid var(--border)' }}
+              />
+              <div style={{ padding: '28px 32px' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 16 }}>
+                  <div>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.1em', display: 'block', marginBottom: 6 }}>
+                      {item.name}
+                    </span>
+                    <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.03em', margin: 0 }}>
+                      {item.subtitle}
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => setOpen(false)}
+                    style={{
+                      background: 'var(--surface-hover)', border: '1px solid var(--border)',
+                      borderRadius: 50, width: 36, height: 36, cursor: 'pointer',
+                      color: 'var(--text-muted)', fontSize: 18, display: 'flex',
+                      alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+                <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, margin: 0 }}>
+                  {item.summary}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
@@ -368,6 +532,29 @@ export default function Home() {
           ))}
           <div style={{ borderTop: '1px solid var(--border)' }} />
         </div>
+      </section>
+
+      {/* ── AUTOMATIONS ── */}
+      <section style={{ ...SC, padding: '0 24px 7rem' }}>
+        <FadeIn>
+          <h2 style={SH}>Automations</h2>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+            {/* Column 1 — 4 items */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {AUTOMATIONS.slice(0, 4).map((a, i) => (
+                <AutomationCard key={a.id} item={a} index={i} />
+              ))}
+            </div>
+            {/* Column 2 — 3 items */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {AUTOMATIONS.slice(4).map((a, i) => (
+                <AutomationCard key={a.id} item={a} index={i + 4} />
+              ))}
+            </div>
+          </div>
+        </FadeIn>
       </section>
 
       {/* ── TOOLKIT MARQUEE ── */}
