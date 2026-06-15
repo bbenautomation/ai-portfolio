@@ -23,7 +23,7 @@ const SERVICES = [
   {
     title: 'Workflow Automation',
     description:
-      'Build end-to-end automated workflows using Make.com, Zapier, and n8n that run without manual intervention.',
+      'Build end-to-end automated workflows that run without manual intervention.',
   },
   {
     title: 'System Integration',
