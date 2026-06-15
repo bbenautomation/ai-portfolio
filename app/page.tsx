@@ -664,17 +664,10 @@ export default function Home() {
           </p>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
-              {TECH_CATEGORIES.slice(0, 4).map(cat => (
-                <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
-              ))}
-            </div>
-            <div style={{ width: 'calc(50% - 8px)', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              {TECH_CATEGORIES.slice(4).map(cat => (
-                <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
-              ))}
-            </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            {TECH_CATEGORIES.map(cat => (
+              <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
+            ))}
           </div>
         </FadeIn>
       </section>
