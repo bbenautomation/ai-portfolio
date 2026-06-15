@@ -132,6 +132,15 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
   const [open, setOpen] = useState(false)
   const reduced = useReducedMotion()
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
   return (
     <>
       <motion.button
@@ -142,33 +151,30 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: index * 0.05 }}
         style={{
           width: '100%', padding: '22px 28px',
-          borderRadius: 50, border: '1px solid var(--border)',
+          borderRadius: 50, border: '1px solid var(--border-bright)',
           background: 'var(--surface)', cursor: 'pointer',
-          textAlign: 'left', display: 'flex', alignItems: 'center',
-          justifyContent: 'space-between', gap: 12,
-          transition: 'border-color 0.2s, background 0.2s, transform 0.2s',
+          textAlign: 'center', display: 'flex', alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s',
           fontFamily: 'inherit',
+          boxShadow: '0 0 18px var(--accent-glow)',
         }}
         onMouseEnter={e => {
           (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)'
           ;(e.currentTarget as HTMLElement).style.background = 'var(--surface-hover)'
           ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
+          ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 32px var(--accent-glow)'
         }}
         onMouseLeave={e => {
-          (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'
+          (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-bright)'
           ;(e.currentTarget as HTMLElement).style.background = 'var(--surface)'
           ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+          ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 18px var(--accent-glow)'
         }}
       >
-        <div>
-          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.06em', display: 'block', marginBottom: 3 }}>
-            {item.name}
-          </span>
-          <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.02em' }}>
-            {item.subtitle}
-          </span>
-        </div>
-        <span style={{ fontSize: 18, color: 'var(--text-dim)', flexShrink: 0 }}>→</span>
+        <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.02em' }}>
+          {item.subtitle}
+        </span>
       </motion.button>
 
       <AnimatePresence>
