@@ -157,19 +157,19 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
           justifyContent: 'center',
           transition: 'border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s',
           fontFamily: 'inherit',
-          boxShadow: '0 0 18px var(--accent-glow)',
+          boxShadow: '0 0 10px var(--accent-glow)',
         }}
         onMouseEnter={e => {
           (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)'
           ;(e.currentTarget as HTMLElement).style.background = 'var(--surface-hover)'
           ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
-          ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 32px var(--accent-glow)'
+          ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 22px var(--accent-glow)'
         }}
         onMouseLeave={e => {
           (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-bright)'
           ;(e.currentTarget as HTMLElement).style.background = 'var(--surface)'
           ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
-          ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 18px var(--accent-glow)'
+          ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 10px var(--accent-glow)'
         }}
       >
         <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.02em' }}>
@@ -186,7 +186,7 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
             transition={{ duration: 0.2 }}
             onClick={() => setOpen(false)}
             style={{
-              position: 'fixed', inset: 0, zIndex: 200,
+              position: 'fixed', inset: 0, zIndex: 9999,
               background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               padding: '24px',
@@ -212,9 +212,6 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
               <div style={{ padding: '28px 32px' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 16 }}>
                   <div>
-                    <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.1em', display: 'block', marginBottom: 6 }}>
-                      {item.name}
-                    </span>
                     <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.03em', margin: 0 }}>
                       {item.subtitle}
                     </h3>
@@ -546,19 +543,14 @@ export default function Home() {
           <h2 style={SH}>Automations</h2>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-            {/* Column 1 — 4 items */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              {AUTOMATIONS.slice(0, 4).map((a, i) => (
-                <AutomationCard key={a.id} item={a} index={i} />
-              ))}
-            </div>
-            {/* Column 2 — 3 items */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              {AUTOMATIONS.slice(4).map((a, i) => (
-                <AutomationCard key={a.id} item={a} index={i + 4} />
-              ))}
-            </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+            {AUTOMATIONS.slice(0, 4).map((a, i) => (
+              <AutomationCard key={a.id} item={a} index={i} />
+            ))}
+            <div />
+            {AUTOMATIONS.slice(4).map((a, i) => (
+              <AutomationCard key={a.id} item={a} index={i + 4} />
+            ))}
           </div>
         </FadeIn>
       </section>
