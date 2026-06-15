@@ -205,21 +205,18 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
           background: 'var(--surface)', cursor: 'pointer',
           textAlign: 'center', display: 'flex', alignItems: 'center',
           justifyContent: 'center',
-          transition: 'border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s',
+          transition: 'border-color 0.2s, background 0.2s, transform 0.2s',
           fontFamily: 'inherit',
-          boxShadow: '0 0 10px var(--accent-glow)',
         }}
         onMouseEnter={e => {
           (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)'
           ;(e.currentTarget as HTMLElement).style.background = 'var(--surface-hover)'
           ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
-          ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 22px var(--accent-glow)'
         }}
         onMouseLeave={e => {
           (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-bright)'
           ;(e.currentTarget as HTMLElement).style.background = 'var(--surface)'
           ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
-          ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 10px var(--accent-glow)'
         }}
       >
         <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.02em' }}>
