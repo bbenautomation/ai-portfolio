@@ -39,13 +39,14 @@ const SERVICES = [
 ]
 
 
-type AutomationItem = { id: string; name: string; subtitle: string; image: string; summary: string }
+type AutomationItem = { id: string; name: string; subtitle: string; image: string; summary: string; imageScale?: number }
 const AUTOMATIONS: AutomationItem[] = [
   {
     id: 'ghost',
     name: 'GHOST',
     subtitle: 'Self-Healing Workflow Monitor',
     image: '/workflows/ghost.png',
+    imageScale: 1.6,
     summary: 'A fully autonomous monitoring system that checks every 15 minutes for failed n8n executions. For each failure, AI diagnoses the root cause, retries the execution automatically, logs the incident to Google Sheets, and fires a Discord alert with the suggested fix — all without human input.',
   },
   {
@@ -60,6 +61,7 @@ const AUTOMATIONS: AutomationItem[] = [
     name: 'CIPHER',
     subtitle: 'AI Content Factory',
     image: '/workflows/cipher.png',
+    imageScale: 1.5,
     summary: 'Send one topic via webhook and get five ready-to-publish content pieces in return: a full blog post, a LinkedIn post, a Twitter thread, an email newsletter, and an AI image prompt. All five are saved to Google Sheets and delivered to your inbox in a single formatted digest.',
   },
   {
@@ -271,10 +273,16 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
                 >
                   ×
                 </button>
-                <img
-                  src={item.image} alt={item.name}
-                  style={{ width: '100%', display: 'block', borderBottom: '1px solid var(--border)' }}
-                />
+                <div style={{ overflow: 'hidden', borderBottom: '1px solid var(--border)' }}>
+                  <img
+                    src={item.image} alt={item.name}
+                    style={{
+                      width: '100%', display: 'block',
+                      transform: item.imageScale ? `scale(${item.imageScale})` : undefined,
+                      transformOrigin: 'center center',
+                    }}
+                  />
+                </div>
                 <div style={{ padding: '28px 32px' }}>
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.03em', margin: '0 0 16px' }}>
                     {item.subtitle}
