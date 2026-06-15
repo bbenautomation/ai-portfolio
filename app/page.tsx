@@ -23,7 +23,7 @@ const SERVICES = [
   {
     title: 'Workflow Automation',
     description:
-      'Build end-to-end automated workflows that run without manual intervention.',
+      'Build reliable, end-to-end automations that handle the repetitive work so your team can focus on what matters.',
   },
   {
     title: 'System Integration',
