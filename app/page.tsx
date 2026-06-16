@@ -9,7 +9,6 @@ import remarkGfm from 'remark-gfm'
 import { Send, Download, Mail, Phone, MapPin, MessageCircle, Bot, Webhook, Cpu, Brain, Globe, FileText, Code2, Settings, Plus } from 'lucide-react'
 import Avatar, { type AvatarState } from '@/components/Avatar'
 import MouseEffect from '@/components/MouseEffect'
-import ThemeToggle from '@/components/ThemeToggle'
 
 /* ── Data ────────────────────────────────────────── */
 const CHIPS = [
@@ -661,11 +660,11 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    const el = document.getElementById('chat')
+    const el = document.getElementById('hero')
     if (!el) return
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setNavVisible(true) },
-      { threshold: 0.05 }
+      ([entry]) => setNavVisible(!entry.isIntersecting),
+      { threshold: 0 }
     )
     obs.observe(el)
     return () => obs.disconnect()
@@ -716,11 +715,12 @@ export default function Home() {
         </a>
 
         <motion.div
+          className="nav-links"
           initial={{ opacity: 0, y: -6 }}
           animate={navVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
           style={{
-            display: 'flex', gap: 28, pointerEvents: navVisible ? 'auto' : 'none',
+            gap: 28, pointerEvents: navVisible ? 'auto' : 'none',
           }}
         >
           {[
@@ -746,12 +746,10 @@ export default function Home() {
             </a>
           ))}
         </motion.div>
-
-        <ThemeToggle inline />
       </nav>
 
       {/* ── HERO ── */}
-      <section style={{
+      <section id="hero" style={{
         ...SC_WIDE,
         padding: '0 24px',
         minHeight: '100dvh',

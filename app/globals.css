@@ -22,27 +22,6 @@
   color-scheme: dark;
 }
 
-[data-theme="light"] {
-  --bg: #f4f4f8;
-  --bg-alt: #eeeef4;
-  --surface: #ffffff;
-  --surface-hover: #f8f8fc;
-  --border: #dddde8;
-  --border-bright: #c8c8d8;
-  --text: #0a0a14;
-  --text-muted: #606070;
-  --text-dim: #9090a0;
-  --accent: #0099bb;
-  --accent-2: #6d28d9;
-  --accent-dim: rgba(0, 153, 187, 0.08);
-  --accent-glow: rgba(0, 153, 187, 0.2);
-  --user-bubble: #eeeef6;
-  --ai-bubble: rgba(0, 153, 187, 0.05);
-  --ai-bubble-border: rgba(0, 153, 187, 0.2);
-  --shadow-glow: 0 0 40px rgba(0, 153, 187, 0.12);
-  color-scheme: light;
-}
-
 /* ─── Base ─────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
