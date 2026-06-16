@@ -933,10 +933,10 @@ export default function Home() {
       {/* ── FOOTER ── */}
       <footer style={{
         borderTop: '1px solid var(--border)',
-        padding: '2rem 24px', textAlign: 'center',
+        padding: '2rem 24px',
         position: 'relative', zIndex: 1,
       }}>
-        <p style={{ fontSize: 12, color: 'var(--text-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+        <p style={{ fontSize: 12, color: 'var(--text-dim)', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 6, maxWidth: 1100, margin: '0 auto' }}>
           Built by Ben. with
           <svg width="14" height="12" viewBox="0 0 7 6" xmlns="http://www.w3.org/2000/svg" style={{ imageRendering: 'pixelated', display: 'inline-block', verticalAlign: 'middle', color: 'var(--accent)' }}>
             <rect x="1" y="0" width="2" height="1" fill="currentColor"/>
