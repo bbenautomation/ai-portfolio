@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Send, Download, Mail, Phone, MapPin, MessageCircle } from 'lucide-react'
+import { Send, Download, Mail, Phone, MapPin, MessageCircle, Bot, Webhook, Cpu, Brain, Globe, FileText, Code2, Settings, Plus } from 'lucide-react'
 import Avatar, { type AvatarState } from '@/components/Avatar'
 import MouseEffect from '@/components/MouseEffect'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -143,6 +143,224 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
     >
       {children}
     </motion.div>
+  )
+}
+
+/* ── Hero AI-agent diagram ────────────────────────── */
+type Pt = { x: number; y: number }
+type DiagramBox = { id: string; cx: number; cy: number; w: number; h: number; icon: React.ComponentType<{ size?: number }>; rx?: number; color?: string }
+
+const AGENT = { cx: 300, cy: 190, w: 240, h: 104 }
+const WEBHOOK: DiagramBox = { id: 'webhook', cx: 100, cy: 190, w: 64, h: 48, icon: Webhook, rx: 10, color: '#8b5cf6' }
+const SUB_ATTACH_X = [248, 282, 318, 352]
+const SUB_NODES: DiagramBox[] = [
+  { id: 'processor', cx: 145, cy: 325, w: 58, h: 50, icon: Cpu, rx: 12, color: '#f59e0b' },
+  { id: 'memory', cx: 252, cy: 365, w: 58, h: 50, icon: Brain, rx: 12, color: '#c084fc' },
+  { id: 'web', cx: 332, cy: 365, w: 58, h: 50, icon: Globe, rx: 12, color: '#4285f4' },
+  { id: 'docs', cx: 415, cy: 325, w: 58, h: 50, icon: FileText, rx: 12, color: '#34a853' },
+]
+const CODE_NODE: DiagramBox = { id: 'code', cx: 470, cy: 110, w: 58, h: 50, icon: Code2, rx: 12, color: '#ff6b35' }
+const GEAR_NODE: DiagramBox = { id: 'gear', cx: 530, cy: 230, w: 58, h: 50, icon: Settings, rx: 12, color: '#fcb400' }
+const PLUS_1 = { cx: 620, cy: 10, r: 16 }
+const PLUS_2 = { cx: 630, cy: 340, r: 16 }
+const BRANCH_DY = 26
+
+/** Exact boundary point on a pill/stadium shape's left or right cap, at a given vertical offset from center. */
+function pillSideX(box: { cx: number; cy: number; w: number; h: number }, side: 'left' | 'right', dy: number) {
+  const hw = box.w / 2
+  const hh = box.h / 2
+  const capCx = side === 'right' ? box.cx + hw - hh : box.cx - hw + hh
+  const dx = Math.sqrt(Math.max(hh * hh - dy * dy, 0))
+  return side === 'right' ? capCx + dx : capCx - dx
+}
+
+function roundedPolyline(points: Pt[], r = 12) {
+  if (points.length < 2) return ''
+  let d = `M ${points[0].x} ${points[0].y} `
+  for (let i = 1; i < points.length - 1; i++) {
+    const prev = points[i - 1]
+    const curr = points[i]
+    const next = points[i + 1]
+    const d1 = { x: curr.x - prev.x, y: curr.y - prev.y }
+    const len1 = Math.hypot(d1.x, d1.y)
+    const d2 = { x: next.x - curr.x, y: next.y - curr.y }
+    const len2 = Math.hypot(d2.x, d2.y)
+    const localR = Math.min(r, len1 / 2, len2 / 2)
+    const a = { x: curr.x - (d1.x / len1) * localR, y: curr.y - (d1.y / len1) * localR }
+    const b = { x: curr.x + (d2.x / len2) * localR, y: curr.y + (d2.y / len2) * localR }
+    d += `L ${a.x} ${a.y} Q ${curr.x} ${curr.y} ${b.x} ${b.y} `
+  }
+  const last = points[points.length - 1]
+  d += `L ${last.x} ${last.y}`
+  return d
+}
+
+const AGENT_LEFT: Pt = { x: pillSideX(AGENT, 'left', 0), y: AGENT.cy }
+const AGENT_CENTER: Pt = { x: AGENT.cx, y: AGENT.cy }
+const AGENT_BOTTOM_Y = AGENT.cy + AGENT.h / 2
+const CODE_START: Pt = { x: pillSideX(AGENT, 'right', -BRANCH_DY), y: AGENT.cy - BRANCH_DY }
+const GEAR_START: Pt = { x: pillSideX(AGENT, 'right', BRANCH_DY), y: AGENT.cy + BRANCH_DY }
+
+const CODE_ELBOW_X = (CODE_START.x + (CODE_NODE.cx - CODE_NODE.w / 2)) / 2
+const GEAR_ELBOW_X = (GEAR_START.x + (GEAR_NODE.cx - GEAR_NODE.w / 2)) / 2
+const CODE_PATH: Pt[] = [CODE_START, { x: CODE_ELBOW_X, y: CODE_START.y }, { x: CODE_ELBOW_X, y: CODE_NODE.cy }, { x: CODE_NODE.cx - CODE_NODE.w / 2, y: CODE_NODE.cy }]
+const CODE_TO_PLUS_ELBOW_X = (CODE_NODE.cx + CODE_NODE.w / 2 + (PLUS_1.cx - PLUS_1.r)) / 2
+const CODE_TO_PLUS: Pt[] = [
+  { x: CODE_NODE.cx + CODE_NODE.w / 2, y: CODE_NODE.cy },
+  { x: CODE_TO_PLUS_ELBOW_X, y: CODE_NODE.cy },
+  { x: CODE_TO_PLUS_ELBOW_X, y: PLUS_1.cy },
+  { x: PLUS_1.cx - PLUS_1.r, y: PLUS_1.cy },
+]
+const GEAR_PATH: Pt[] = [GEAR_START, { x: GEAR_ELBOW_X, y: GEAR_START.y }, { x: GEAR_ELBOW_X, y: GEAR_NODE.cy }, { x: GEAR_NODE.cx - GEAR_NODE.w / 2, y: GEAR_NODE.cy }]
+const GEAR_TO_PLUS_ELBOW_X = (GEAR_NODE.cx + GEAR_NODE.w / 2 + (PLUS_2.cx - PLUS_2.r)) / 2
+const GEAR_TO_PLUS: Pt[] = [
+  { x: GEAR_NODE.cx + GEAR_NODE.w / 2, y: GEAR_NODE.cy },
+  { x: GEAR_TO_PLUS_ELBOW_X, y: GEAR_NODE.cy },
+  { x: GEAR_TO_PLUS_ELBOW_X, y: PLUS_2.cy },
+  { x: PLUS_2.cx - PLUS_2.r, y: PLUS_2.cy },
+]
+
+/** agent → sub-node, rectilinear elbow: drop straight down from the hub, jog into the node's column just above it */
+function subElbowPoints(i: number): Pt[] {
+  const n = SUB_NODES[i]
+  const attach: Pt = { x: SUB_ATTACH_X[i], y: AGENT_BOTTOM_Y }
+  const top: Pt = { x: n.cx, y: n.cy - n.h / 2 }
+  const elbowY = top.y - 16
+  return [attach, { x: attach.x, y: elbowY }, { x: n.cx, y: elbowY }, top]
+}
+
+/** small square "pipe" caps marking where each connector line meets a box */
+const CONNECTOR_CAPS: Pt[] = [
+  { x: WEBHOOK.cx + WEBHOOK.w / 2, y: WEBHOOK.cy },
+  AGENT_LEFT,
+  ...SUB_NODES.flatMap((n, i) => [
+    { x: SUB_ATTACH_X[i], y: AGENT_BOTTOM_Y },
+    { x: n.cx, y: n.cy - n.h / 2 },
+  ]),
+  CODE_START,
+  { x: CODE_NODE.cx - CODE_NODE.w / 2, y: CODE_NODE.cy },
+  { x: CODE_NODE.cx + CODE_NODE.w / 2, y: CODE_NODE.cy },
+  { x: PLUS_1.cx - PLUS_1.r, y: PLUS_1.cy },
+  GEAR_START,
+  { x: GEAR_NODE.cx - GEAR_NODE.w / 2, y: GEAR_NODE.cy },
+  { x: GEAR_NODE.cx + GEAR_NODE.w / 2, y: GEAR_NODE.cy },
+  { x: PLUS_2.cx - PLUS_2.r, y: PLUS_2.cy },
+]
+
+function DiagramNode({ box, accent }: { box: DiagramBox; accent?: boolean }) {
+  const tint = accent ? 'var(--accent)' : box.color ?? 'var(--text-muted)'
+  return (
+    <foreignObject x={box.cx - box.w / 2} y={box.cy - box.h / 2} width={box.w} height={box.h} style={{ overflow: 'visible' }}>
+      <div style={{
+        width: box.w, height: box.h, borderRadius: box.rx ?? 12,
+        background: 'var(--surface)', border: `1.5px solid ${accent ? 'var(--accent)' : box.color ? `${box.color}66` : 'var(--border-bright)'}`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: tint,
+        boxShadow: accent ? '0 0 18px var(--accent-glow)' : box.color ? `0 0 14px ${box.color}33` : undefined,
+      }}>
+        <box.icon size={Math.min(box.w, box.h) * 0.4} />
+      </div>
+    </foreignObject>
+  )
+}
+
+function PlusNode({ p }: { p: { cx: number; cy: number; r: number } }) {
+  return (
+    <foreignObject x={p.cx - p.r} y={p.cy - p.r} width={p.r * 2} height={p.r * 2} style={{ overflow: 'visible' }}>
+      <div style={{
+        width: p.r * 2, height: p.r * 2, borderRadius: '50%',
+        background: 'var(--surface)', border: '1.5px solid #ffffff',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff',
+        boxShadow: '0 0 14px rgba(255,255,255,0.35)',
+      }}>
+        <Plus size={p.r * 0.9} />
+      </div>
+    </foreignObject>
+  )
+}
+
+/** webhook → agent → (random sub-node, there and back) → agent → (random branch) → its + terminal */
+function buildRandomRun(): Pt[] {
+  const webhookStart = { x: WEBHOOK.cx + WEBHOOK.w / 2, y: WEBHOOK.cy }
+  const subIdx = Math.floor(Math.random() * SUB_NODES.length)
+  const outBound = subElbowPoints(subIdx)
+  const attach = outBound[0]
+  const inBound = [...outBound].reverse()
+
+  const branch = Math.random() < 0.5 ? 'code' : 'gear'
+  const branchPoints = branch === 'code' ? [...CODE_PATH, ...CODE_TO_PLUS] : [...GEAR_PATH, ...GEAR_TO_PLUS]
+
+  return [
+    webhookStart,
+    AGENT_LEFT,
+    AGENT_CENTER,
+    attach,
+    ...outBound,
+    ...inBound,
+    attach,
+    AGENT_CENTER,
+    ...branchPoints,
+  ]
+}
+
+function HeroGraphic() {
+  const reduced = !!useReducedMotion()
+  const line = { stroke: 'var(--border-bright)', fill: 'none' } as const
+  const [run, setRun] = useState(() => ({ id: 0, path: buildRandomRun() }))
+
+  const advance = () => {
+    setTimeout(() => setRun(r => ({ id: r.id + 1, path: buildRandomRun() })), 700)
+  }
+
+  return (
+    <svg width="100%" height="100%" viewBox="40 -40 660 480" style={{ overflow: 'visible' }}>
+      <g transform="translate(-20, -15)">
+      {/* webhook → agent */}
+      <line x1={WEBHOOK.cx + WEBHOOK.w / 2} y1={WEBHOOK.cy} x2={AGENT_LEFT.x} y2={AGENT_LEFT.y} style={line} strokeWidth={2} />
+
+      {/* agent → sub-nodes, rectilinear elbows, all touching the hub's flat bottom edge */}
+      {SUB_NODES.map((n, i) => (
+        <path key={`sub-${n.id}`} d={roundedPolyline(subElbowPoints(i), 10)} style={line} strokeWidth={2} />
+      ))}
+
+      {/* agent → code → plus, agent → gear → plus, rounded elbows touching the hub's cap */}
+      <path d={roundedPolyline(CODE_PATH)} style={line} strokeWidth={2} />
+      <path d={roundedPolyline(CODE_TO_PLUS)} style={line} strokeWidth={2} />
+      <path d={roundedPolyline(GEAR_PATH)} style={line} strokeWidth={2} />
+      <path d={roundedPolyline(GEAR_TO_PLUS)} style={line} strokeWidth={2} />
+
+      {/* small pipe-fitting caps where each connector meets a box */}
+      {CONNECTOR_CAPS.map((p, i) => (
+        <rect key={`cap-${i}`} x={p.x - 4.5} y={p.y - 4.5} width={9} height={9} rx={1.5} fill="#ffffff" />
+      ))}
+
+      <DiagramNode box={WEBHOOK} />
+      {SUB_NODES.map(n => <DiagramNode key={n.id} box={n} />)}
+      <DiagramNode box={CODE_NODE} />
+      <DiagramNode box={GEAR_NODE} />
+      <PlusNode p={PLUS_1} />
+      <PlusNode p={PLUS_2} />
+
+      <DiagramNode box={{ id: 'agent', cx: AGENT.cx, cy: AGENT.cy, w: AGENT.w, h: AGENT.h, icon: Bot, rx: AGENT.h / 2 }} accent />
+
+      {/* single glowing pulse: webhook → agent → a random sub-node and back → a random branch → its + terminal, then a fresh run starts */}
+      {!reduced && (
+        <motion.circle
+          key={run.id}
+          r={5}
+          style={{ fill: 'var(--accent)', filter: 'drop-shadow(0 0 6px var(--accent))' }}
+          initial={{ opacity: 0 }}
+          animate={{
+            cx: run.path.map(p => p.x),
+            cy: run.path.map(p => p.y),
+            opacity: [0, ...run.path.slice(1, -1).map(() => 1), 0],
+          }}
+          transition={{ duration: 6.5, ease: 'linear' }}
+          onAnimationComplete={advance}
+        />
+      )}
+      </g>
+    </svg>
   )
 }
 
@@ -527,7 +745,7 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section style={{
-        ...SC,
+        ...SC_WIDE,
         padding: '0 24px',
         minHeight: '100dvh',
         display: 'flex',
@@ -538,7 +756,7 @@ export default function Home() {
       }}>
         <div className="hero-layout">
           {/* Text stack */}
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: '0 1 540px' }}>
             <FadeIn delay={0.08}>
               <h1 style={{
                 fontSize: 'clamp(2.4rem, 7vw, 4rem)',
@@ -605,6 +823,12 @@ export default function Home() {
               </div>
             </FadeIn>
           </div>
+
+          <FadeIn delay={0.3}>
+            <div style={{ width: 'clamp(340px, 48vw, 580px)', aspectRatio: '660 / 480', flexShrink: 0, marginTop: '-2rem' }}>
+              <HeroGraphic />
+            </div>
+          </FadeIn>
         </div>
       </section>
 
