@@ -536,12 +536,7 @@ export default function Home() {
         paddingBottom: 64,
       }}>
         <div className="hero-layout">
-          {/* Avatar — left */}
-          <FadeIn>
-            <Avatar state="idle" size={200} />
-          </FadeIn>
-
-          {/* Text stack — right */}
+          {/* Text stack */}
           <div style={{ flex: 1 }}>
             <FadeIn delay={0.08}>
               <h1 style={{
@@ -613,7 +608,7 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="work" style={{ ...SC_WIDE, padding: '7rem 24px' }}>
+      <section id="work" style={{ ...SC_WIDE, padding: '8.5rem 24px' }}>
         <FadeIn>
           <h2 style={SH}>What I do</h2>
         </FadeIn>
@@ -635,7 +630,7 @@ export default function Home() {
       </section>
 
       {/* ── AUTOMATIONS ── */}
-      <section id="automations" style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+      <section id="automations" style={{ ...SC_WIDE, padding: '0 24px 8.5rem' }}>
         <FadeIn>
           <h2 style={SH}>Automations</h2>
         </FadeIn>
@@ -656,7 +651,7 @@ export default function Home() {
       </section>
 
       {/* ── SYSTEMS & TECH ── */}
-      <section id="systems" style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+      <section id="systems" style={{ ...SC_WIDE, padding: '0 24px 8.5rem' }}>
         <FadeIn>
           <h2 style={SH}>Systems &amp; Technologies</h2>
           <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 520, marginBottom: '3rem', textAlign: 'center', margin: '0 auto 3rem' }}>
@@ -673,7 +668,7 @@ export default function Home() {
       </section>
 
       {/* ── TOOLKIT MARQUEE ── */}
-      <section id="toolkit" style={{ ...SC_WIDE, padding: '0 24px 7rem' }}>
+      <section id="toolkit" style={{ ...SC_WIDE, padding: '0 24px 8.5rem' }}>
         <FadeIn>
           <h2 style={SH}>Full Toolkit</h2>
         </FadeIn>
