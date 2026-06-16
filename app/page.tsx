@@ -39,7 +39,7 @@ const SERVICES = [
 ]
 
 
-type AutomationItem = { id: string; name: string; subtitle: string; image: string; images?: string[]; summary: string; imageScale?: number }
+type AutomationItem = { id: string; name: string; subtitle: string; image: string; images?: string[]; imageLabels?: string[]; summary: string; imageScale?: number }
 const AUTOMATIONS: AutomationItem[] = [
   {
     id: 'ghost',
@@ -54,6 +54,7 @@ const AUTOMATIONS: AutomationItem[] = [
     subtitle: 'Lead Outreach System',
     image: '/workflows/apex.png',
     images: ['/workflows/apex.png', '/workflows/apex-reply.png'],
+    imageLabels: ['Lead Research & Outreach', 'Reply Handler & Reporting'],
     summary: 'A two-workflow outreach system that reads new leads from Google Sheets, uses AI to write personalized emails, and sends them via Gmail. A second workflow monitors replies, classifies them as Interested, Not Interested, or Question, then routes each one automatically — hot lead alerts to Discord, auto-replies to questions, status updates for rejections.',
   },
   {
@@ -275,7 +276,7 @@ function AutomationCard({ item, index }: { item: AutomationItem; index: number }
                   <div key={i} style={{ overflow: 'hidden', borderBottom: '1px solid var(--border)' }}>
                     {item.images && item.images.length > 1 && (
                       <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'var(--accent)', textTransform: 'uppercase', padding: '10px 16px 0', margin: 0 }}>
-                        Workflow {i + 1} of {item.images.length}
+                        {item.imageLabels?.[i] ?? `Workflow ${i + 1} of ${item.images.length}`}
                       </p>
                     )}
                     <img
