@@ -45,7 +45,7 @@ const AUTOMATIONS: AutomationItem[] = [
     name: 'GHOST',
     subtitle: 'Self-Healing Workflow Monitor',
     image: '/workflows/ghost.png',
-    summary: 'A fully autonomous monitoring system that checks every 15 minutes for failed n8n executions. For each failure, AI diagnoses the root cause, retries the execution automatically, logs the incident to Google Sheets, and fires a Discord alert with the suggested fix — all without human input.',
+    summary: 'A fully autonomous monitoring system that checks every 15 minutes for failed n8n executions. For each failure, AI diagnoses the root cause, retries the execution automatically, logs the incident to Google Sheets, and fires a Discord alert with the suggested fix, all without human input.',
   },
   {
     id: 'apex',
@@ -54,7 +54,7 @@ const AUTOMATIONS: AutomationItem[] = [
     image: '/workflows/apex.png',
     images: ['/workflows/apex.png', '/workflows/apex-reply.png'],
     imageLabels: ['Lead Research & Outreach', 'Reply Handler & Reporting'],
-    summary: 'A two-workflow outreach system that reads new leads from Google Sheets, uses AI to write personalized emails, and sends them via Gmail. A second workflow monitors replies, classifies them as Interested, Not Interested, or Question, then routes each one automatically — hot lead alerts to Discord, auto-replies to questions, status updates for rejections.',
+    summary: 'A two-workflow outreach system that reads new leads from Google Sheets, uses AI to write personalized emails, and sends them via Gmail. A second workflow monitors replies, classifies them as Interested, Not Interested, or Question, then routes each one automatically: hot lead alerts to Discord, auto-replies to questions, status updates for rejections.',
   },
   {
     id: 'cipher',
@@ -150,7 +150,7 @@ type Pt = { x: number; y: number }
 type DiagramBox = { id: string; cx: number; cy: number; w: number; h: number; icon: React.ComponentType<{ size?: number }>; rx?: number; color?: string }
 
 const AGENT = { cx: 300, cy: 190, w: 240, h: 104 }
-const WEBHOOK: DiagramBox = { id: 'webhook', cx: 100, cy: 190, w: 64, h: 48, icon: Webhook, rx: 10, color: '#8b5cf6' }
+const WEBHOOK: DiagramBox = { id: 'webhook', cx: 100, cy: 95, w: 64, h: 48, icon: Webhook, rx: 10, color: '#8b5cf6' }
 const SUB_ATTACH_X = [248, 282, 318, 352]
 const SUB_NODES: DiagramBox[] = [
   { id: 'processor', cx: 145, cy: 325, w: 58, h: 50, icon: Cpu, rx: 12, color: '#f59e0b' },
@@ -219,6 +219,16 @@ const GEAR_TO_PLUS: Pt[] = [
   { x: PLUS_2.cx - PLUS_2.r, y: PLUS_2.cy },
 ]
 
+/** webhook → agent, rectilinear elbow: out from the webhook, drop to the hub's row, then into its left cap */
+const WEBHOOK_START: Pt = { x: WEBHOOK.cx + WEBHOOK.w / 2, y: WEBHOOK.cy }
+const WEBHOOK_ELBOW_X = (WEBHOOK_START.x + AGENT_LEFT.x) / 2
+const WEBHOOK_PATH: Pt[] = [
+  WEBHOOK_START,
+  { x: WEBHOOK_ELBOW_X, y: WEBHOOK_START.y },
+  { x: WEBHOOK_ELBOW_X, y: AGENT_LEFT.y },
+  AGENT_LEFT,
+]
+
 /** agent → sub-node, rectilinear elbow: drop straight down from the hub, jog into the node's column just above it */
 function subElbowPoints(i: number): Pt[] {
   const n = SUB_NODES[i]
@@ -283,8 +293,6 @@ const TOOL_NODE_INDICES = [2, 3] // web, docs
 
 /** webhook → agent → LLM node, there and back → agent → a random tool, there and back → agent → a random branch → its + terminal */
 function buildRandomRun(): Pt[] {
-  const webhookStart = { x: WEBHOOK.cx + WEBHOOK.w / 2, y: WEBHOOK.cy }
-
   const llmOut = subElbowPoints(LLM_NODE_INDEX)
   const llmIn = [...llmOut].reverse()
 
@@ -296,8 +304,7 @@ function buildRandomRun(): Pt[] {
   const branchPoints = branch === 'code' ? [...CODE_PATH, ...CODE_TO_PLUS] : [...GEAR_PATH, ...GEAR_TO_PLUS]
 
   return [
-    webhookStart,
-    AGENT_LEFT,
+    ...WEBHOOK_PATH,
     AGENT_CENTER,
     ...llmOut,
     ...llmIn,
@@ -321,8 +328,8 @@ function HeroGraphic() {
   return (
     <svg width="100%" height="100%" viewBox="40 -40 660 480" style={{ overflow: 'visible' }}>
       <g transform="translate(-20, -15)">
-      {/* webhook → agent */}
-      <line x1={WEBHOOK.cx + WEBHOOK.w / 2} y1={WEBHOOK.cy} x2={AGENT_LEFT.x} y2={AGENT_LEFT.y} style={line} strokeWidth={2} />
+      {/* webhook → agent, rectilinear elbow to match the rest of the diagram */}
+      <path d={roundedPolyline(WEBHOOK_PATH, 10)} style={line} strokeWidth={2} />
 
       {/* agent → sub-nodes, rectilinear elbows, all touching the hub's flat bottom edge */}
       {SUB_NODES.map((n, i) => (
@@ -660,11 +667,16 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    const el = document.getElementById('hero')
+    const el = document.getElementById('chat')
     if (!el) return
     const obs = new IntersectionObserver(
-      ([entry]) => setNavVisible(!entry.isIntersecting),
-      { threshold: 0 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNavVisible(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.05 }
     )
     obs.observe(el)
     return () => obs.disconnect()
@@ -889,7 +901,7 @@ export default function Home() {
           </p>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div className="tech-grid">
             {TECH_CATEGORIES.map(cat => (
               <TechCategoryCard key={cat.name} name={cat.name} items={cat.items} />
             ))}
@@ -1150,7 +1162,7 @@ export default function Home() {
                   </motion.button>
                 </form>
                 <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-dim)', marginTop: 6 }}>
-                  AI-powered portfolio — responses may vary
+                  AI-powered portfolio, responses may vary
                 </p>
               </div>
             </div>

@@ -15,11 +15,11 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'John Benedict Biagtas — AI Automation Specialist',
+  title: 'Ben Automation',
   description:
     'Chat with John\'s AI avatar. Ask about his projects, automation skills, and how he can help streamline your business.',
   openGraph: {
-    title: 'John Benedict Biagtas — AI Automation Specialist',
+    title: 'Ben Automation',
     description: 'An interactive AI portfolio. Ask me anything.',
     type: 'website',
   },
