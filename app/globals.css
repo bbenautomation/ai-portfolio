@@ -2,44 +2,44 @@
 
 /* ─── Theme tokens ─────────────────────────────── */
 :root {
-  --bg: #050508;
-  --bg-alt: #0d0d14;
-  --surface: #111118;
-  --surface-hover: #18181f;
-  --border: #1e1e2a;
-  --border-bright: #2e2e3e;
-  --text: #f0f0f8;
-  --text-muted: #7070a0;
-  --text-dim: #404060;
-  --accent: #00d4ff;
-  --accent-2: #7c3aed;
-  --accent-dim: rgba(0, 212, 255, 0.08);
-  --accent-glow: rgba(0, 212, 255, 0.25);
-  --user-bubble: #16162a;
-  --ai-bubble: rgba(0, 212, 255, 0.06);
-  --ai-bubble-border: rgba(0, 212, 255, 0.18);
-  --shadow-glow: 0 0 40px rgba(0, 212, 255, 0.15);
+  --bg: #1b1410;
+  --bg-alt: #221a14;
+  --surface: #2a2019;
+  --surface-hover: #332619;
+  --border: #3d2f22;
+  --border-bright: #4f3d2c;
+  --text: #f5ead9;
+  --text-muted: #b8a48c;
+  --text-dim: #7a6a56;
+  --accent: #f0e4cd;
+  --accent-2: #f0e4cd;
+  --accent-dim: rgba(240, 228, 205, 0.08);
+  --accent-glow: rgba(240, 228, 205, 0.25);
+  --user-bubble: #2e2319;
+  --ai-bubble: rgba(240, 228, 205, 0.06);
+  --ai-bubble-border: rgba(240, 228, 205, 0.18);
+  --shadow-glow: 0 0 40px rgba(240, 228, 205, 0.15);
   color-scheme: dark;
 }
 
 [data-theme="light"] {
-  --bg: #f4f4f8;
-  --bg-alt: #eeeef4;
-  --surface: #ffffff;
-  --surface-hover: #f8f8fc;
-  --border: #dddde8;
-  --border-bright: #c8c8d8;
-  --text: #0a0a14;
-  --text-muted: #606070;
-  --text-dim: #9090a0;
-  --accent: #0099bb;
-  --accent-2: #6d28d9;
-  --accent-dim: rgba(0, 153, 187, 0.08);
-  --accent-glow: rgba(0, 153, 187, 0.2);
-  --user-bubble: #eeeef6;
-  --ai-bubble: rgba(0, 153, 187, 0.05);
-  --ai-bubble-border: rgba(0, 153, 187, 0.2);
-  --shadow-glow: 0 0 40px rgba(0, 153, 187, 0.12);
+  --bg: #faf6ee;
+  --bg-alt: #f3ecdf;
+  --surface: #fffdfa;
+  --surface-hover: #f7f1e4;
+  --border: #e8ddc8;
+  --border-bright: #d9c8a8;
+  --text: #2a1d12;
+  --text-muted: #6b5840;
+  --text-dim: #a8957a;
+  --accent: #9c7b46;
+  --accent-2: #9c7b46;
+  --accent-dim: rgba(156, 123, 70, 0.08);
+  --accent-glow: rgba(156, 123, 70, 0.2);
+  --user-bubble: #f0e8d8;
+  --ai-bubble: rgba(156, 123, 70, 0.05);
+  --ai-bubble-border: rgba(156, 123, 70, 0.2);
+  --shadow-glow: 0 0 40px rgba(156, 123, 70, 0.12);
   color-scheme: light;
 }
 
