@@ -279,13 +279,19 @@ function PlusNode({ p }: { p: { cx: number; cy: number; r: number } }) {
   )
 }
 
-/** webhook → agent → (random sub-node, there and back) → agent → (random branch) → its + terminal */
+const LLM_NODE_INDEX = 0 // processor
+const TOOL_NODE_INDICES = [2, 3] // web, docs
+
+/** webhook → agent → LLM node, there and back → agent → a random tool, there and back → agent → a random branch → its + terminal */
 function buildRandomRun(): Pt[] {
   const webhookStart = { x: WEBHOOK.cx + WEBHOOK.w / 2, y: WEBHOOK.cy }
-  const subIdx = Math.floor(Math.random() * SUB_NODES.length)
-  const outBound = subElbowPoints(subIdx)
-  const attach = outBound[0]
-  const inBound = [...outBound].reverse()
+
+  const llmOut = subElbowPoints(LLM_NODE_INDEX)
+  const llmIn = [...llmOut].reverse()
+
+  const toolIdx = TOOL_NODE_INDICES[Math.floor(Math.random() * TOOL_NODE_INDICES.length)]
+  const toolOut = subElbowPoints(toolIdx)
+  const toolIn = [...toolOut].reverse()
 
   const branch = Math.random() < 0.5 ? 'code' : 'gear'
   const branchPoints = branch === 'code' ? [...CODE_PATH, ...CODE_TO_PLUS] : [...GEAR_PATH, ...GEAR_TO_PLUS]
@@ -294,10 +300,11 @@ function buildRandomRun(): Pt[] {
     webhookStart,
     AGENT_LEFT,
     AGENT_CENTER,
-    attach,
-    ...outBound,
-    ...inBound,
-    attach,
+    ...llmOut,
+    ...llmIn,
+    AGENT_CENTER,
+    ...toolOut,
+    ...toolIn,
     AGENT_CENTER,
     ...branchPoints,
   ]
