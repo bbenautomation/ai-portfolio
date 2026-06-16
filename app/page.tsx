@@ -106,7 +106,7 @@ const TOOLKIT: ToolkitItem[] = [
   { name: 'HubSpot',          abbr: 'Hs',  color: '#ff7a59', bg: 'rgba(255,122,89,0.12)',  icon: 'hubspot' },
   { name: 'Trello',           abbr: 'Tr',  color: '#0079bf', bg: 'rgba(0,121,191,0.12)',   icon: 'trello' },
   { name: 'ChatGPT',          abbr: 'GPT', color: '#10a37f', bg: 'rgba(16,163,127,0.12)',  src: '/icons/chatgpticon.svg' },
-  { name: 'Webhooks',         abbr: 'Wh',  color: '#00d4ff', bg: 'rgba(0,212,255,0.10)',  src: '/icons/webhookicon.svg' },
+  { name: 'Webhooks',         abbr: 'Wh',  color: '#6499b4', bg: 'rgba(100,153,180,0.10)', src: '/icons/webhookicon.svg' },
   { name: 'Google Sheets',    abbr: 'GS',  color: '#34a853', bg: 'rgba(52,168,83,0.12)',   icon: 'googlesheets' },
   { name: 'PayPal',           abbr: 'PP',  color: '#00b4e6', bg: 'rgba(0,180,230,0.10)',   icon: 'paypal' },
   { name: 'Wise',             abbr: 'Ws',  color: '#9fe870', bg: 'rgba(159,232,112,0.10)', icon: 'wise' },
@@ -119,7 +119,7 @@ const TOOLKIT: ToolkitItem[] = [
   { name: 'AnyDesk',          abbr: 'AD',  color: '#EF443B', bg: 'rgba(239,68,59,0.12)',   icon: 'anydesk' },
   { name: 'Groq',             abbr: 'Gq',  color: '#F55036', bg: 'rgba(245,80,54,0.12)' },
   { name: 'Grok',             abbr: 'Gk',  color: '#e0e0e0', bg: 'rgba(255,255,255,0.06)' },
-  { name: 'API Integration',  abbr: 'API', color: '#00d4ff', bg: 'rgba(0,212,255,0.10)' },
+  { name: 'API Integration',  abbr: 'API', color: '#6499b4', bg: 'rgba(100,153,180,0.10)' },
 ]
 
 const TECH_CATEGORIES: { name: string; items: string[] }[] = [
