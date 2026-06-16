@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>John Benedict Biagtas — Resume</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 9.6pt;
+    line-height: 1.55;
+    color: #2a2a28;
+    background: #fff;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    padding: 0.65in 0.75in 0.55in;
+    background: #fdfdfb;
+  }
+
+  /* Header */
+  .header { margin-bottom: 8px; }
+  .header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 27pt;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    color: #1a1a18;
+  }
+  .header .title {
+    font-size: 9.5pt;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #0099bb;
+    margin-top: 4px;
+  }
+  .accent-tick { width: 38px; height: 4px; background: #0099bb; margin: 14px 0 14px; border-radius: 2px; }
+
+  .contact-row {
+    display: flex; flex-wrap: wrap; gap: 0;
+    font-size: 8.6pt; color: #6b6b66; margin-bottom: 22px;
+  }
+  .contact-row span { padding-right: 12px; margin-right: 12px; border-right: 1px solid #d8d8d2; }
+  .contact-row span:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+  .contact-row a { color: #6b6b66; text-decoration: none; }
+
+  /* Sections */
+  section { margin-bottom: 22px; }
+  section:last-child { margin-bottom: 0; }
+  h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10.5pt; font-weight: 700; letter-spacing: -0.2px;
+    color: #1a1a18; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 9px;
+  }
+  h2::before { content: ''; width: 4px; height: 14px; background: #0099bb; border-radius: 2px; }
+
+  .summary p { font-size: 9.8pt; color: #3a3a36; line-height: 1.65; max-width: 6.6in; }
+
+  .job { margin-bottom: 16px; padding-top: 14px; border-top: 1px solid #e3e3dd; }
+  .job:first-of-type { padding-top: 0; border-top: none; }
+  .job:last-child { margin-bottom: 0; }
+  .job-header { display: flex; justify-content: space-between; align-items: baseline; }
+  .job-title { font-size: 10.2pt; font-weight: 700; color: #1a1a18; }
+  .job-dates { font-size: 8.4pt; color: #999; white-space: nowrap; font-weight: 500; }
+  .job-company { font-size: 9pt; color: #0099bb; font-weight: 600; margin-top: 2px; margin-bottom: 6px; }
+  .job ul { padding-left: 16px; }
+  .job li { font-size: 8.9pt; color: #444; margin-bottom: 3px; }
+  .job li::marker { color: #c9c9c2; }
+
+  .skills-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 28px;
+  }
+  .skill-row { margin-bottom: 10px; }
+  .skill-row-label { font-size: 8.2pt; font-weight: 700; color: #1a1a18; margin-bottom: 5px; }
+  .pill-group { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pill {
+    font-size: 7.8pt; font-weight: 500; color: #2a6e7c;
+    background: #e8f6f9; border: 1px solid #c5e8ee;
+    padding: 3px 9px; border-radius: 20px;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { margin: 0; }
+    @page { size: letter; margin: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>John Benedict Biagtas</h1>
+    <div class="title">AI Automation Specialist</div>
+    <div class="accent-tick"></div>
+    <div class="contact-row">
+      <span>Philippines</span>
+      <span>+63 929 565 9969</span>
+      <span><a href="mailto:johnbenedictbiagtas@gmail.com">johnbenedictbiagtas@gmail.com</a></span>
+      <span><a href="https://benautomation.dev">benautomation.dev</a></span>
+    </div>
+  </div>
+
+  <section class="summary">
+    <h2>Summary</h2>
+    <p>Self-taught AI Automation Specialist with hands-on experience building end-to-end workflows using n8n, Make.com, and Zapier. Comfortable working with AI models including Claude AI, Groq, and ChatGPT to build practical systems like lead outreach pipelines, hiring screeners, content generators, and self-healing monitors. Experienced in integrating tools across CRM, communication, and productivity platforms.</p>
+  </section>
+
+  <section>
+    <h2>Work Experience</h2>
+
+    <div class="job">
+      <div class="job-header">
+        <span class="job-title">Social Media Engagement Coordinator</span>
+        <span class="job-dates">Feb 2024 – May 2025</span>
+      </div>
+      <div class="job-company">MDS</div>
+      <ul>
+        <li>Monitored and responded to comments and messages across social media platforms to maintain audience engagement.</li>
+        <li>Tracked engagement metrics and compiled regular performance updates for the team.</li>
+        <li>Coordinated with content team to ensure consistent posting schedules and timely responses.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <span class="job-title">Personal Assistant to CEO</span>
+        <span class="job-dates">Feb 2022 – May 2023</span>
+      </div>
+      <div class="job-company">Starrett Family Trucking</div>
+      <ul>
+        <li>Managed the CEO's calendar, meetings, and daily schedule to keep operations running smoothly.</li>
+        <li>Handled correspondence, document preparation, and administrative tasks on behalf of the executive.</li>
+        <li>Organized and maintained records, files, and business data with high attention to detail.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section style="border-top: 1px solid #e3e3dd; padding-top: 20px;">
+    <h2>Technical Skills</h2>
+    <div class="skills-cols">
+      <div class="skill-row">
+        <div class="skill-row-label">Automation</div>
+        <div class="pill-group">
+          <span class="pill">n8n</span><span class="pill">Make.com</span><span class="pill">Zapier</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">AI & LLMs</div>
+        <div class="pill-group">
+          <span class="pill">Claude AI</span><span class="pill">Groq</span><span class="pill">ChatGPT</span><span class="pill">Gemini</span><span class="pill">Grok</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">Integration</div>
+        <div class="pill-group">
+          <span class="pill">Webhooks</span><span class="pill">REST APIs</span><span class="pill">Google Sheets</span><span class="pill">HubSpot</span><span class="pill">Airtable</span><span class="pill">Typeform</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">Workspace</div>
+        <div class="pill-group">
+          <span class="pill">Google Workspace</span><span class="pill">Notion</span><span class="pill">Trello</span><span class="pill">Slack</span><span class="pill">Zoom</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">Reporting & Ops</div>
+        <div class="pill-group">
+          <span class="pill">Gmail</span><span class="pill">Clockify</span><span class="pill">PayPal</span><span class="pill">Wise</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
