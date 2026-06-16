@@ -10,8 +10,8 @@
 
   body {
     font-family: 'Inter', Arial, sans-serif;
-    font-size: 9.6pt;
-    line-height: 1.55;
+    font-size: 9pt;
+    line-height: 1.4;
     color: #2a2a28;
     background: #fff;
   }
@@ -20,73 +20,78 @@
     width: 8.5in;
     min-height: 11in;
     margin: 0 auto;
-    padding: 0.65in 0.75in 0.55in;
+    padding: 0.5in 0.7in 0.45in;
     background: #fdfdfb;
   }
 
   /* Header */
-  .header { margin-bottom: 8px; }
+  .header { margin-bottom: 6px; }
   .header h1 {
     font-family: 'Outfit', sans-serif;
-    font-size: 27pt;
+    font-size: 23pt;
     font-weight: 800;
-    letter-spacing: -0.8px;
+    letter-spacing: -0.7px;
     color: #1a1a18;
   }
   .header .title {
-    font-size: 9.5pt;
+    font-size: 8.8pt;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: #0099bb;
-    margin-top: 4px;
+    margin-top: 3px;
   }
-  .accent-tick { width: 38px; height: 4px; background: #0099bb; margin: 14px 0 14px; border-radius: 2px; }
+  .accent-tick { width: 34px; height: 3px; background: #0099bb; margin: 10px 0 10px; border-radius: 2px; }
 
   .contact-row {
     display: flex; flex-wrap: wrap; gap: 0;
-    font-size: 8.6pt; color: #6b6b66; margin-bottom: 22px;
+    font-size: 8.2pt; color: #6b6b66; margin-bottom: 14px;
   }
   .contact-row span { padding-right: 12px; margin-right: 12px; border-right: 1px solid #d8d8d2; }
   .contact-row span:last-child { border-right: none; padding-right: 0; margin-right: 0; }
   .contact-row a { color: #6b6b66; text-decoration: none; }
 
   /* Sections */
-  section { margin-bottom: 22px; }
+  section { margin-bottom: 14px; }
   section:last-child { margin-bottom: 0; }
   h2 {
     font-family: 'Outfit', sans-serif;
-    font-size: 10.5pt; font-weight: 700; letter-spacing: -0.2px;
-    color: #1a1a18; margin-bottom: 10px;
-    display: flex; align-items: center; gap: 9px;
+    font-size: 9.8pt; font-weight: 700; letter-spacing: -0.2px;
+    color: #1a1a18; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
   }
-  h2::before { content: ''; width: 4px; height: 14px; background: #0099bb; border-radius: 2px; }
+  h2::before { content: ''; width: 4px; height: 12px; background: #0099bb; border-radius: 2px; }
 
-  .summary p { font-size: 9.8pt; color: #3a3a36; line-height: 1.65; max-width: 6.6in; }
+  .summary p { font-size: 9.1pt; color: #3a3a36; line-height: 1.5; max-width: 6.6in; }
 
-  .job { margin-bottom: 16px; padding-top: 14px; border-top: 1px solid #e3e3dd; }
+  .job { margin-bottom: 10px; padding-top: 10px; border-top: 1px solid #e3e3dd; }
   .job:first-of-type { padding-top: 0; border-top: none; }
   .job:last-child { margin-bottom: 0; }
   .job-header { display: flex; justify-content: space-between; align-items: baseline; }
-  .job-title { font-size: 10.2pt; font-weight: 700; color: #1a1a18; }
-  .job-dates { font-size: 8.4pt; color: #999; white-space: nowrap; font-weight: 500; }
-  .job-company { font-size: 9pt; color: #0099bb; font-weight: 600; margin-top: 2px; margin-bottom: 6px; }
-  .job ul { padding-left: 16px; }
-  .job li { font-size: 8.9pt; color: #444; margin-bottom: 3px; }
+  .job-title { font-size: 9.6pt; font-weight: 700; color: #1a1a18; }
+  .job-dates { font-size: 8pt; color: #999; white-space: nowrap; font-weight: 500; }
+  .job-company { font-size: 8.6pt; color: #0099bb; font-weight: 600; margin-top: 1px; margin-bottom: 4px; }
+  .job ul { padding-left: 15px; }
+  .job li { font-size: 8.4pt; color: #444; margin-bottom: 2px; }
   .job li::marker { color: #c9c9c2; }
 
   .skills-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px 28px;
+    gap: 8px 28px;
   }
-  .skill-row { margin-bottom: 10px; }
-  .skill-row-label { font-size: 8.2pt; font-weight: 700; color: #1a1a18; margin-bottom: 5px; }
-  .pill-group { display: flex; flex-wrap: wrap; gap: 5px; }
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 28px;
+  }
+  .skill-row { margin-bottom: 4px; }
+  .skill-row-label { font-size: 7.9pt; font-weight: 700; color: #1a1a18; margin-bottom: 3px; }
+  .pill-group { display: flex; flex-wrap: wrap; gap: 4px; }
   .pill {
-    font-size: 7.8pt; font-weight: 500; color: #2a6e7c;
+    font-size: 7.4pt; font-weight: 500; color: #2a6e7c;
     background: #e8f6f9; border: 1px solid #c5e8ee;
-    padding: 3px 9px; border-radius: 20px;
+    padding: 2px 8px; border-radius: 20px;
   }
 
   @media print {
@@ -146,8 +151,34 @@
     </div>
   </section>
 
-  <section style="border-top: 1px solid #e3e3dd; padding-top: 20px;">
-    <h2>Technical Skills</h2>
+  <section style="border-top: 1px solid #e3e3dd; padding-top: 13px;">
+    <h2>Skills</h2>
+    <div class="abilities-grid">
+      <div class="skill-row">
+        <div class="skill-row-label">Low-Code/No-Code Automation</div>
+        <p style="font-size: 8.7pt; color: #555; line-height: 1.55; margin: 0;">Building workflows in n8n, Make.com, and Zapier without needing a full dev team.</p>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">AI & LLM Integration</div>
+        <p style="font-size: 8.7pt; color: #555; line-height: 1.55; margin: 0;">Applying Claude, Groq, and ChatGPT to real business workflows like screening, outreach, and content generation.</p>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">API & Webhook Integration</div>
+        <p style="font-size: 8.7pt; color: #555; line-height: 1.55; margin: 0;">Connecting apps and data sources so information flows automatically without manual effort.</p>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">Workflow Monitoring & Troubleshooting</div>
+        <p style="font-size: 8.7pt; color: #555; line-height: 1.55; margin: 0;">Catching failures fast, diagnosing root causes, and keeping automated systems running reliably.</p>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">Technical Documentation</div>
+        <p style="font-size: 8.7pt; color: #555; line-height: 1.55; margin: 0;">Writing clear SOPs and process guides so systems stay easy to understand and maintain.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top: 1px solid #e3e3dd; padding-top: 13px;">
+    <h2>Tech Stack</h2>
     <div class="skills-cols">
       <div class="skill-row">
         <div class="skill-row-label">Automation</div>
