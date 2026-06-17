@@ -382,7 +382,7 @@ function TechCategoryCard({ name, items }: { name: string; items: string[] }) {
   return (
     <div style={{
       background: 'var(--surface)', border: '1px solid var(--border)',
-      borderRadius: 14, padding: '20px 18px',
+      borderRadius: 14, padding: '20px 18px', height: '100%', boxSizing: 'border-box',
     }}>
       <p style={{
         fontSize: 11, fontWeight: 700, letterSpacing: '0.1em',
