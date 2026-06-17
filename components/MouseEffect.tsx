@@ -47,6 +47,12 @@ export default function MouseEffect() {
     let lastMove = Date.now()
     let hue = 180
     let animId: number
+    let rafActive = false
+
+    // Throttle mousemove to once per frame
+    let pendingMove = false
+    let pendingX = 0
+    let pendingY = 0
 
     const resize = () => {
       canvas.width = window.innerWidth
@@ -54,25 +60,19 @@ export default function MouseEffect() {
     }
     resize()
 
-    const onMove = (e: MouseEvent) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-      lastMove = Date.now()
-      hue = (hue + 2.5) % 360
-
-      for (let i = 0; i < 4; i++) {
-        const spread = 14
-        particles.push({
-          x: mouseX + (Math.random() - 0.5) * spread,
-          y: mouseY + (Math.random() - 0.5) * spread,
-          vx: (Math.random() - 0.5) * 1.5,
-          vy: (Math.random() - 0.5) * 1.5 - 0.5,
-          life: 55 + Math.random() * 35,
-          maxLife: 55 + Math.random() * 35,
-          hue: (hue + Math.random() * 40 - 20 + 360) % 360,
-          size: 3 + Math.random() * 7,
-        })
+    const startLoop = () => {
+      if (!rafActive) {
+        rafActive = true
+        animId = requestAnimationFrame(draw)
       }
+    }
+
+    const onMove = (e: MouseEvent) => {
+      pendingX = e.clientX
+      pendingY = e.clientY
+      pendingMove = true
+      lastMove = Date.now()
+      startLoop()
     }
 
     const onClick = (e: MouseEvent) => {
@@ -106,6 +106,7 @@ export default function MouseEffect() {
           size: 2 + Math.random() * 5,
         })
       }
+      startLoop()
     }
 
     window.addEventListener('resize', resize)
@@ -113,16 +114,38 @@ export default function MouseEffect() {
     window.addEventListener('click', onClick)
 
     const draw = () => {
-      animId = requestAnimationFrame(draw)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      // Process one mouse update per frame — the throttle
+      if (pendingMove) {
+        pendingMove = false
+        mouseX = pendingX
+        mouseY = pendingY
+        hue = (hue + 2.5) % 360
+
+        for (let i = 0; i < 4; i++) {
+          const spread = 14
+          particles.push({
+            x: mouseX + (Math.random() - 0.5) * spread,
+            y: mouseY + (Math.random() - 0.5) * spread,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: (Math.random() - 0.5) * 1.5 - 0.5,
+            life: 55 + Math.random() * 35,
+            maxLife: 55 + Math.random() * 35,
+            hue: (hue + Math.random() * 40 - 20 + 360) % 360,
+            size: 3 + Math.random() * 7,
+          })
+        }
+      }
 
       const inactiveMs = Date.now() - lastMove
       const globalFade = inactiveMs < 300
         ? 1
         : Math.max(0, 1 - (inactiveMs - 300) / 1800)
 
-      if (globalFade === 0 && splashes.length === 0) {
-        particles = []
+      // Stop the loop when there's nothing left to draw
+      if (globalFade === 0 && splashes.length === 0 && particles.length === 0) {
+        rafActive = false
         return
       }
 
@@ -164,9 +187,9 @@ export default function MouseEffect() {
         }
         s.life -= 1
       }
-    }
 
-    draw()
+      animId = requestAnimationFrame(draw)
+    }
 
     return () => {
       window.removeEventListener('resize', resize)

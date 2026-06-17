@@ -125,8 +125,8 @@ const TECH_CATEGORIES: { name: string; items: string[] }[] = [
   { name: 'Automation',        items: ['Make.com', 'Zapier', 'n8n'] },
   { name: 'AI & Models',       items: ['ChatGPT', 'Claude AI', 'Gemini', 'Groq', 'Grok'] },
   { name: 'Dev & Integration', items: ['Claude Code', 'Webhooks', 'API Integration'] },
-  { name: 'CRM & Analytics',   items: ['HubSpot', 'Google Sheets', 'Airtable', 'Clockify'] },
-  { name: 'Workspace',         items: ['Google Workspace', 'Notion', 'Trello', 'PayPal', 'Wise'] },
+  { name: 'CRM & Analytics',   items: ['HubSpot', 'Google Sheets', 'Airtable'] },
+  { name: 'Workspace',         items: ['Google Workspace', 'Notion', 'Trello'] },
   { name: 'Comms & Ops',       items: ['Slack', 'Zoom', 'AnyDesk', 'Typeform'] },
 ]
 
@@ -153,13 +153,13 @@ const AGENT = { cx: 300, cy: 190, w: 240, h: 104 }
 const WEBHOOK: DiagramBox = { id: 'webhook', cx: 100, cy: 95, w: 64, h: 48, icon: Webhook, rx: 10, color: '#8b5cf6' }
 const SUB_ATTACH_X = [248, 282, 318, 352]
 const SUB_NODES: DiagramBox[] = [
-  { id: 'processor', cx: 145, cy: 325, w: 58, h: 50, icon: Cpu, rx: 12, color: '#f59e0b' },
+  { id: 'processor', cx: 145, cy: 325, w: 58, h: 50, icon: Cpu, rx: 12, color: '#f97316' },
   { id: 'memory', cx: 252, cy: 365, w: 58, h: 50, icon: Brain, rx: 12, color: '#c084fc' },
   { id: 'web', cx: 332, cy: 365, w: 58, h: 50, icon: Globe, rx: 12, color: '#4285f4' },
   { id: 'docs', cx: 415, cy: 325, w: 58, h: 50, icon: FileText, rx: 12, color: '#34a853' },
 ]
 const CODE_NODE: DiagramBox = { id: 'code', cx: 470, cy: 110, w: 58, h: 50, icon: Code2, rx: 12, color: '#ff6b35' }
-const GEAR_NODE: DiagramBox = { id: 'gear', cx: 530, cy: 230, w: 58, h: 50, icon: Settings, rx: 12, color: '#fcb400' }
+const GEAR_NODE: DiagramBox = { id: 'gear', cx: 530, cy: 230, w: 58, h: 50, icon: Settings, rx: 12, color: '#facc15' }
 const PLUS_1 = { cx: 620, cy: 10, r: 16 }
 const PLUS_2 = { cx: 630, cy: 340, r: 16 }
 const BRANCH_DY = 26
@@ -850,7 +850,7 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="work" style={{ ...SC_WIDE, padding: '8.5rem 24px' }}>
+      <section id="work" style={{ ...SC_WIDE, padding: '10rem 24px' }}>
         <FadeIn>
           <h2 style={SH}>What I do</h2>
         </FadeIn>
@@ -872,7 +872,7 @@ export default function Home() {
       </section>
 
       {/* ── AUTOMATIONS ── */}
-      <section id="automations" style={{ ...SC_WIDE, padding: '0 24px 8.5rem' }}>
+      <section id="automations" style={{ ...SC_WIDE, padding: '0 24px 10rem' }}>
         <FadeIn>
           <h2 style={SH}>Automations</h2>
         </FadeIn>
@@ -893,7 +893,7 @@ export default function Home() {
       </section>
 
       {/* ── SYSTEMS & TECH ── */}
-      <section id="systems" style={{ ...SC_WIDE, padding: '0 24px 8.5rem' }}>
+      <section id="systems" style={{ ...SC_WIDE, padding: '0 24px 10rem' }}>
         <FadeIn>
           <h2 style={SH}>Systems &amp; Technologies</h2>
           <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 520, marginBottom: '3rem', textAlign: 'center', margin: '0 auto 3rem' }}>
@@ -910,7 +910,7 @@ export default function Home() {
       </section>
 
       {/* ── TOOLKIT MARQUEE ── */}
-      <section id="toolkit" style={{ ...SC_WIDE, padding: '0 24px 8.5rem' }}>
+      <section id="toolkit" style={{ ...SC_WIDE, padding: '0 24px 10rem' }}>
         <FadeIn>
           <h2 style={SH}>Full Toolkit</h2>
         </FadeIn>
