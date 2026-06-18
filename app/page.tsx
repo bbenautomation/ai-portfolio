@@ -872,7 +872,7 @@ export default function Home() {
       </section>
 
       {/* ── AUTOMATIONS ── */}
-      <section id="automations" style={{ ...SC_WIDE, padding: '0 24px 10rem' }}>
+      <section id="automations" style={{ ...SC_WIDE, padding: '8rem 24px 10rem' }}>
         <FadeIn>
           <h2 style={SH}>Automations</h2>
         </FadeIn>
@@ -893,7 +893,7 @@ export default function Home() {
       </section>
 
       {/* ── SYSTEMS & TECH ── */}
-      <section id="systems" style={{ ...SC_WIDE, padding: '0 24px 10rem' }}>
+      <section id="systems" style={{ ...SC_WIDE, padding: '8rem 24px 10rem' }}>
         <FadeIn>
           <h2 style={SH}>Systems &amp; Technologies</h2>
           <p style={{ fontSize: 15, color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 520, marginBottom: '3rem', textAlign: 'center', margin: '0 auto 3rem' }}>
@@ -910,7 +910,7 @@ export default function Home() {
       </section>
 
       {/* ── TOOLKIT MARQUEE ── */}
-      <section id="toolkit" style={{ ...SC_WIDE, padding: '0 24px 10rem' }}>
+      <section id="toolkit" style={{ ...SC_WIDE, padding: '8rem 24px 10rem' }}>
         <FadeIn>
           <h2 style={SH}>Full Toolkit</h2>
         </FadeIn>
